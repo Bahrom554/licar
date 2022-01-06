@@ -62,91 +62,7 @@
 </div>
 
 <!-- create Modal -->
-<div id="createModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form role="form" action="{{route('driver.store')}}" method="POST">
-                {{csrf_field()}}
-                <div class="modal-header">
-                    <h4 class="modal-title">Yangi Haydovchi Qo'shish</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Haydovchi.F.I.SH</label>
-                                <input type="text" name="driver" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Haydovchi.Tel</label>
-                                <input type="tel" name="tel_d" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>AvtoEgasi.F.I.SH</label>
-                                <input type="text" name="owner" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>AvtoEgasi.Tel</label>
-                                <input type="tel" name="tel_o" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>AvtoRusumi</label>
-                                <input type="text" name="car" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>DavlatRaqami</label>
-                                <input type="text" name="car_number" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Litsenziya Chiqish Sanasi</label>
-                                <input type="date" name="l_start" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Litsenziya Tugash Sanasi</label>
-                                <input type="date" name="l_end" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Umumiy To'lo'v Summasi</label>
-                                <input type="number" name="total_cost" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>To'lo'v</label>
-                                <input type="number" name="paid_cost" class="form-control" required>
-                            </div>
 
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 
 
@@ -154,21 +70,8 @@
 
 <script src=" {{asset('admin/js/jquery-3.4.1.slim.min.js')}}"></script>
 <script src=" {{asset('admin/js/bootstrap.bundle.min.js')}}"></script>
-<script src=" {{asset('admin/js/main.js')}}"></script>
-<script>
-    var eltrows = document.querySelectorAll('#tr');
-
-    eltrows.forEach(function (eltrow){
-        var eltd = eltrow.querySelector('#status').textContent;
-        if(parseInt(eltd,10)<0){
-            eltrow.classList.add('bg-danger');
-        }
-        else if(parseInt(eltd,10)<5){
-            eltrow.classList.add('bg-warning');
-        }
-
-    })
-</script>
+@section('jscode')
+@show
 
 
 </body>

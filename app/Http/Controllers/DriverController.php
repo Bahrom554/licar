@@ -24,12 +24,12 @@ class DriverController extends Controller
     }
     public function index()
     {
-        $drivers=Driver::paginate(30);
+        $drivers=Driver::paginate(50);
         return view('all',compact('drivers'));
     }
     public function red()
     {
-        $drivers=Driver::where('status','<',0)->paginate(30);
+        $drivers=Driver::where('status','<',0)->paginate(50);
 
             return view('all', compact('drivers'));
 
@@ -38,7 +38,7 @@ class DriverController extends Controller
     }
     public function warn()
     {
-        $drivers=Driver::where('status','<',5)->where('status','=>',0)->paginate(30);
+        $drivers=Driver::where('status','<',5)->where('status','>=',0)->paginate(50);
 
             return view('all', compact('drivers'));
 
