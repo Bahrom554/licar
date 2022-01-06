@@ -5,7 +5,7 @@
         <th>#</th>
         <th>Haydovchi</th>
         <th>Tel</th>
-        <th>AvtoEgasi</th>
+        <th>AvtoEgasi123</th>
         <th>Tel</th>
         <th>Avtomobil</th>
         <th>Litsenziya Muddati</th>
