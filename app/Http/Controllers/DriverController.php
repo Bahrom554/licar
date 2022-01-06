@@ -16,31 +16,32 @@ class DriverController extends Controller
      */
     public function __construct()
     {
-        $drivers=Driver::all();
-            foreach ($drivers as $driver)
-        {
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
             $driver->isExpired();
         }
     }
+
     public function index()
     {
-        $drivers=Driver::paginate(50);
-        return view('all',compact('drivers'));
+        $drivers = Driver::paginate(50);
+        return view('all', compact('drivers'));
     }
+
     public function red()
     {
-        $drivers=Driver::where('status','<',0)->paginate(50);
+        $drivers = Driver::where('status', '<', 0)->paginate(50);
 
-            return view('all', compact('drivers'));
-
+        return view('all', compact('drivers'));
 
 
     }
+
     public function warn()
     {
-        $drivers=Driver::where('status','<',5)->where('status','>=',0)->paginate(50);
+        $drivers = Driver::where('status', '<', 5)->where('status', '>=', 0)->paginate(50);
 
-            return view('all', compact('drivers'));
+        return view('all', compact('drivers'));
 
     }
 
@@ -58,25 +59,26 @@ class DriverController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         request()->validate([
-            'driver'=>['required','string','max:255'],
-            'tel_d'=>['required'],
-            'owner'=>['required','string','max:255'],
-            'tel_o'=>['required'],
-            'car'=>['required'],
-            'car_number'=>['required'],
-            'l_start'=>['required'],
-            'l_end'=>['required'],
-            'total_cost'=>['required'],
-            'paid_cost'=>['required']
+            'driver' => ['required', 'string', 'max:255'],
+            'tel_d' => ['required'],
+            'owner' => ['required', 'string', 'max:255'],
+            'tel_o' => ['required'],
+            'car' => ['required'],
+            'car_number' => ['required'],
+            'l_start' => ['required'],
+            'l_end' => ['required'],
+            'total_cost' => ['required'],
+            'paid_cost' => ['required']
 
         ]);
-        $driver=Driver::create($request->all());
+
+        $driver = Driver::create($request->all());
         return redirect(route('driver.index'));
 
     }
@@ -84,7 +86,7 @@ class DriverController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -95,7 +97,7 @@ class DriverController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -107,58 +109,81 @@ class DriverController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         request()->validate([
-            'driver'=>['required','string','max:255'],
-            'tel_d'=>['required'],
-            'owner'=>['required','string','max:255'],
-            'tel_o'=>['required'],
-            'car'=>['required'],
-            'car_number'=>['required'],
-            'l_start'=>['required'],
-            'l_end'=>['required'],
-            'total_cost'=>['required'],
-            'paid_cost'=>['required']
+            'driver' => ['required', 'string', 'max:255'],
+            'tel_d' => ['required'],
+            'owner' => ['required', 'string', 'max:255'],
+            'tel_o' => ['required'],
+            'car' => ['required'],
+            'car_number' => ['required'],
+            'l_start' => ['required'],
+            'l_end' => ['required'],
+            'total_cost' => ['required'],
+            'paid_cost' => ['required']
 
         ]);
 
         $driver = Driver::find($id);
-        $driver->update($request->except('_token','_method'));
+        $driver->update($request->except('_token', '_method'));
 
-        return redirect(route('driver.index'))->with('message','driver update succesfully');
+        return redirect(route('driver.index'))->with('message', 'driver update succesfully');
 
     }
-    public function paid(Request $request, $id){
+
+    public function paid(Request $request, $id)
+    {
 
         $driver = Driver::find($id);
-       $driver->paid_cost+=$request->newpay;
-       $driver->save();
-       $payment = new Payment();
-       $payment->driver_id = $driver->id;
-       $payment->payment = $request->newpay;
-       $payment->save();
-       return redirect()->back();
+        $driver->paid_cost += $request->newpay;
+        $driver->save();
+        $payment = new Payment();
+        $payment->driver_id = $driver->id;
+        $payment->payment = $request->newpay;
+        $payment->save();
+        return redirect()->back();
 
+    }
+
+    public function search(Request $request)
+    {
+        if ($value = $request->get('search')) {
+            $drivers = Driver::where('driver', 'like', '%' . $value . '%')
+                ->orWhere('owner', 'like', '%' . $value . '%')
+                ->orWhere('tel_d', 'like', '%' . $value . '%')
+                ->orWhere('tel_o', 'like', '%' . $value . '%')
+                ->orWhere('car', 'like', '%' . $value . '%')
+                ->orWhere('car_number', 'like', '%' . $value . '%')
+                ->get();
+            return response()->json([
+                'view' => view('table', compact('drivers'))->render()
+            ]);
+        } else {
+            $drivers = Driver::where('id', '<', -1)->get();
+            return response()->json([
+                'view' => view('table', compact('drivers'))->render()
+            ]);
+        }
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Driver::where('id',$id)->delete();
+        Driver::where('id', $id)->delete();
 
 
-        return redirect()->back()->with('message','driver is deleted successfully');
+        return redirect()->back()->with('message', 'driver is deleted successfully');
 
     }
 }
