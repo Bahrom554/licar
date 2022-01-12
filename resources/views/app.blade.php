@@ -13,50 +13,109 @@
 
 
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-xl navbar-light bg-light" style="height:7vh; width: 100%;">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav justify-content-around flex-grow-1">
 
-                <li class="nav-item bg-success">
+    <div class="row align-items-center my-2" >
+        <div class="col-4">
+            <div class="row">
+                <div class="col-6">
+                    <a class=" nav-link text-white  bg-success text-center " href="{{route('driver.index')}}"><i class="fas fa-list "></i> <span class="hid">Umumiy ro'yhat</span>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a class="nav-link text-white text-center "style="background-color: rgba(0, 217, 255, 0.801);" data-toggle="modal" href="#createModal"> <i class="fas fa-user "></i><span class="hid">Yangi Mijoz Qo'shish</span></a>
 
-                    <a class="nav-link text-white " href="{{route('driver.index')}}"><i class="fas fa-list "></i> Umumiy
-                        ro'yhat</a>
-                </li>
-                <li class="nav-item bg-danger">
+                </div>
 
-                    <a class="nav-link text-white " href="{{route('red.driver')}}"><i class="fas fa-users "></i>Qarzdorlar
-                        ro'yhati</a>
-                </li>
-                <li class="nav-item bg-warning">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row time active_tab" id="tab_m" >
+                <div class="col-6">
+                    <a class="nav-link text-white text-center bg-danger " href="{{route('red.driver')}}"><i class="fas fa-users "></i><span class="hid">Qarzdorlar ro'yhati</span></a>
+                </div>
+                <div class="col-6">
+                    <a class="nav-link text-white text-center bg-warning " href="{{route('warn.driver')}}"><i class="fas fa-users "></i><span class="hid">To'lov yaqnlashganlar</span></a>
 
-                    <a class="nav-link text-white " href="{{route('warn.driver')}}"><i class="fas fa-users "></i>To'lov
-                        yaqnlashganlar</a>
-                </li>
-                <li class="nav-item" style="background-color: rgba(0, 217, 255, 0.801);">
+                </div>
+            </div>
+            <div class="row time" id="tab_t" >
+                <div class="col-6">
+                    <a class="nav-link text-white text-center bg-danger " href="{{route('redd.driver')}}"><i class="fas fa-users "></i><span class="hid">L Muddati Tugagan</span></a>
+                </div>
+                <div class="col-6">
+                    <a class="nav-link text-white text-center bg-warning " href="{{route('warnd.driver')}}"><i class="fas fa-users "></i><span class="hid">L Muddati yaqn</span></a>
 
-                    <a id="createButton" class="nav-link text-white " data-toggle="modal" href="#createModal"> <i
-                            class="fas fa-user "></i>Yangi Mijoz Qo'shish</a>
-                </li>
-            </ul>
-            <form class="form-inline my-3 my-lg-0 ">
-                <input class="form-control mr-sm-2" id="search" onkeyup="searchDrivers()" type="search"
-                       placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <form action="{{route('logout')}}" method="post">
-                {{csrf_field()}}
-                <button class="btn btn-outline-danger ml-4"><i class="fas fa-sign-out-alt px-2 "></i>
-                    CHiqish
-                </button>
-            </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="sells ">
+                <a href="#" id="btn_m" class="py-1 sellector active_btn">$</a>
+                <a href="#" id="btn_t" class="py-1 sellector active">T</a>
+            </div>
 
         </div>
-    </nav>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-7 col-xl-8 d-flex align-items-center">
+
+                    <input class="form-control mr-sm-2" id="search" onkeyup="searchDrivers()" type="search"
+                           placeholder="Search" aria-label="Search">
+
+                </div>
+                <div class="col-5 col-xl-4">
+                    <form action="{{route('logout')}}" method="post">
+                        {{csrf_field()}}
+                    <button class="btn btn-outline-danger d-block"> <i class="fas fa-sign-out-alt  "></i>
+                        <span class="hid">CHiqish</span>
+                    </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="overflow-auto" style="height: 87vh;" id="table">
@@ -76,11 +135,16 @@
 <script src=" {{asset('admin/js/bootstrap.bundle.min.js')}}"></script>
 
 <script>
+    let eltable = $('table');
     function searchDrivers() {
         let search = $('#search').val()
-        if (search.length > 3) {
+        if(!search.trim()){
+            $("#table").html(eltable);
+            return;
+        }
+        if (search.length > 1 ) {
 
-            axios.get('{{url('/')}}'+'/search', {
+            axios.get('{{url('/')}}' + '/search', {
                 params: {
                     search: search
                 }
@@ -92,6 +156,7 @@
                     console.log(error);
                 })
         }
+
     }
 </script>
 @section('jscode')

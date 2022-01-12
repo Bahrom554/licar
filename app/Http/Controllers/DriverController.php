@@ -14,22 +14,23 @@ class DriverController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $drivers = Driver::all();
-        foreach ($drivers as $driver) {
-            $driver->isExpired();
-        }
-    }
 
     public function index()
     {
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
+            $driver->listAll();
+        }
         $drivers = Driver::paginate(50);
         return view('all', compact('drivers'));
     }
 
     public function red()
     {
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
+            $driver->isExpired();
+        }
         $drivers = Driver::where('status', '<', 0)->paginate(50);
 
         return view('all', compact('drivers'));
@@ -39,11 +40,40 @@ class DriverController extends Controller
 
     public function warn()
     {
-        $drivers = Driver::where('status', '<', 5)->where('status', '>=', 0)->paginate(50);
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
+            $driver->isExpired();
+        }
+        $drivers = Driver::where('status', '=', 3)->paginate(50);
 
         return view('all', compact('drivers'));
 
     }
+    public function redd()
+    {
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
+            $driver->isDated();
+        }
+        $drivers = Driver::where('status', '=', 1)->paginate(50);
+
+        return view('all', compact('drivers'));
+
+
+    }
+
+    public function warnd()
+    {
+        $drivers = Driver::all();
+        foreach ($drivers as $driver) {
+            $driver->isDated();
+        }
+        $drivers = Driver::where('status', '=', 2)->paginate(50);
+
+        return view('all', compact('drivers'));
+
+    }
+
 
 
     /**
@@ -146,7 +176,7 @@ class DriverController extends Controller
         $payment->driver_id = $driver->id;
         $payment->payment = $request->newpay;
         $payment->save();
-        return redirect()->back();
+        return redirect(route('driver.index'));
 
     }
 
@@ -163,7 +193,10 @@ class DriverController extends Controller
             return response()->json([
                 'view' => view('table', compact('drivers'))->render()
             ]);
+
         } else {
+
+
             $drivers = Driver::where('id', '<', -1)->get();
             return response()->json([
                 'view' => view('table', compact('drivers'))->render()

@@ -13,7 +13,7 @@
             <th>Litsenziya Muddati</th>
             <th>To'lovSummasi</th>
             <th>To'langanSumma</th>
-            <th>To'langan Kun</th>
+            <th>Holati</th>
             <th>Sozlash</th>
 
 
@@ -21,7 +21,13 @@
         </thead>
         <tbody>
         @foreach($drivers as $driver)
-            <tr id="tr">
+            <tr id="tr" class="
+            @if($driver->status == 3 || $driver->status == 2)
+                bg-warning
+            @elseif($driver->status < 0 || $driver->status == 1)
+                bg-danger text-white
+            @endif
+                ">
                 <td class="nr">{{$driver->id}}</td>
                 <td>{{$driver->driver}}</td>
                 <td>{{$driver->tel_d}}</td>
@@ -31,7 +37,20 @@
                 <td>{{$driver->l_start}} dan<br> {{$driver->l_end}} gacha</td>
                 <td class="puli">{{$driver->total_cost}}</td>
                 <td class="puli">{{$driver->paid_cost}}</td>
-                <td id="status">{{$driver->status}}</td>
+                <td id="status" class="text-center">
+                    @if($driver->status == 3 )
+                     T yaqn!
+                    @elseif($driver->status == 2)
+                    L yaqn!
+                    @elseif($driver->status == 1)
+                    L tugagan!!!
+                    @elseif($driver->status < 0 )
+                    Qarzdor!!!
+                    @endif
+
+
+
+                </td>
                 <td class="bg-white">
                     <div class="d-flex justify-content-around ">
                         <a href="#paymentModal" class="use-address" data-toggle="modal"><i
@@ -65,15 +84,7 @@
         var app = @json($drivers);
         var eltrows = document.querySelectorAll('#tr');
 
-        eltrows.forEach(function (eltrow) {
-            var eltd = eltrow.querySelector('#status').textContent;
-            if (parseInt(eltd, 10) < 0) {
-                eltrow.classList.add('bg-danger');
-            } else if (parseInt(eltd, 10) < 5) {
-                eltrow.classList.add('bg-warning');
-            }
 
-        })
 
         //pay
         $(".use-address").click(function () {
@@ -125,6 +136,7 @@
 
 
         });
+
 
     </script>
 

@@ -21,10 +21,10 @@
     @if($drivers->count() > 0)
         @foreach($drivers as $driver)
             <tr id="tr" class="
-            @if($driver->status < 5 && $driver->status >= 0)
+           @if($driver->status == 3 || $driver->status == 2)
                 bg-warning
-            @elseif($driver->status < 0)
-                bg-danger
+            @elseif($driver->status < 0 || $driver->status == 1)
+                bg-danger text-white
             @endif
             ">
 
@@ -37,7 +37,18 @@
                 <td>{{$driver->l_start}} dan<br> {{$driver->l_end}} gacha</td>
                 <td class="puli">{{$driver->total_cost}}</td>
                 <td class="puli">{{$driver->paid_cost}}</td>
-                <td>{{$driver->status}}</td>
+                <td>
+                    @if($driver->status == 3 )
+                        To'lov Muddati yaqn!
+                    @elseif($driver->status == 2)
+                        Litsenziya Muddati yaqn!
+                    @elseif($driver->status == 1)
+                        Litsenziya Muddati <br> tugagan!!!
+                    @elseif($driver->status < 0 )
+                        Qarzdor!!!
+
+                    @endif
+                </td>
                 <td class="bg-white">
                     <div class="d-flex justify-content-around ">
                         <a href="#paymentModal" class="use-address" data-toggle="modal"><i
