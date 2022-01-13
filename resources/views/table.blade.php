@@ -35,8 +35,8 @@
                 <td>{{$driver->tel_o}}</td>
                 <td>{{$driver->car}} <br> {{$driver->car_number}}</td>
                 <td>{{$driver->l_start}} dan<br> {{$driver->l_end}} gacha</td>
-                <td class="puli">{{$driver->total_cost}}</td>
-                <td class="puli">{{$driver->paid_cost}}</td>
+                <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
+                <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                 <td>
                     @if($driver->status == 3 )
                         To'lov Muddati yaqn!

@@ -42,7 +42,7 @@ class Driver extends Model
             return;
         }
 
-        if($check_day>0 && $check_day < 5 && $iscost>0 ){
+        if($check_day>=0 && $check_day < 5 && $iscost>0 ){
 //            pul w
             $this->status  = 3;
             $this->save();
@@ -50,7 +50,7 @@ class Driver extends Model
 
         }
 
-         if($expire_day < 5 && $expire_day > 0){
+         if($expire_day < 5 && $expire_day >= 0){
 //          litsenziya w
             $this->status  = 2;
             $this->save();

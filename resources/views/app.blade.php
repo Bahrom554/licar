@@ -35,7 +35,7 @@
                     <a class="nav-link text-white text-center bg-danger " href="{{route('red.driver')}}"><i class="fas fa-users "></i><span class="hid">Qarzdorlar ro'yhati</span></a>
                 </div>
                 <div class="col-6">
-                    <a class="nav-link text-white text-center bg-warning " href="{{route('warn.driver')}}"><i class="fas fa-users "></i><span class="hid">To'lov yaqnlashganlar</span></a>
+                    <a class="nav-link text-white text-center bg-warning " href="{{route('warn.driver')}}"><i class="fas fa-users "></i><span class="hid">To'lov yaqn</span></a>
 
                 </div>
             </div>
@@ -50,9 +50,9 @@
             </div>
         </div>
         <div class="col-1">
-            <div class="sells ">
-                <a href="#" id="btn_m" class="py-1 sellector active_btn">$</a>
-                <a href="#" id="btn_t" class="py-1 sellector active">T</a>
+            <div class="sells">
+                <a href="#" id="btn_m" class="py-2 sellector active_btn "><i class="fas fa-dollar-sign fa-lg"></i></a>
+                <a href="#" id="btn_t" class="py-2 sellector active "><i class="fas fa-calendar-alt fa-lg"></i></a>
             </div>
 
         </div>
