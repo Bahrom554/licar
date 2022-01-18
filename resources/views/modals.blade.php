@@ -1,92 +1,10 @@
-<div id="createModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form role="form" action="{{route('driver.store')}}" method="POST">
-                {{csrf_field()}}
-                <div class="modal-header">
-                    <h4 class="modal-title">Yangi Haydovchi Qo'shish</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Haydovchi.F.I.SH</label>
-                                <input type="text" name="driver" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Haydovchi.Tel</label>
-                                <input type="tel" name="tel_d" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>AvtoEgasi.F.I.SH</label>
-                                <input type="text" name="owner" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>AvtoEgasi.Tel</label>
-                                <input type="tel" name="tel_o" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>AvtoRusumi</label>
-                                <input type="text" name="car" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>DavlatRaqami</label>
-                                <input type="text" name="car_number" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Litsenziya Chiqish Sanasi</label>
-                                <input type="date" name="l_start" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Litsenziya Tugash Sanasi</label>
-                                <input type="date" name="l_end" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Umumiy To'lo'v Summasi</label>
-                                <input type="number" min="0" name="total_cost" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>To'lo'v</label>
-                                <input type="number" min="0" name="paid_cost" class="form-control" required>
-                            </div>
+{{--create MOdal--}}
 
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+{{--payment Modal--}}
 <div id="paymentModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="payform" role="form"  method="POST">
+            <form id="payform" role="form" action="{{route('paid.driver',$driver->id)}}"  method="POST">
                 {{csrf_field()}}
                 {{method_field('PUT')}}
 
@@ -99,31 +17,31 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Haydovchi.F.I.SH</label>
-                                <input  type="text" id="paydriver" class="form-control" value="" disabled >
+                                <input  type="text" id="paydriver" class="form-control" value="{{$driver->driver}}" disabled >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Haydovchi.Tel</label>
-                                <input type="tel" class="form-control" id="paytel_d" value="" disabled >
+                                <input type="tel" class="form-control" id="paytel_d" value="{{$driver->tel_d}}" disabled >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Umumiy To'lo'v Summasi</label>
-                                <input type="text" class="form-control" id="pay_total" value="" disabled >
+                                <label>Oylik Summasi</label>
+                                <input type="text" class="form-control" id="pay_total" value="{{$driver->total_cost}}" disabled >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label> To'langan Summa</label>
-                                <input type="text" class="form-control" id="pay_cost" value="" disabled >
+                                <input type="text" class="form-control" id="pay_cost" value="{{$driver->paid_cost}}" disabled >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Litsenziya Tugash Sanasi</label>
-                                <input type="date" class="form-control" id="pay_l_end" value="" disabled >
+                                <label>Sana</label>
+                                <input type="date" name="created_at" class="form-control" value="{{date("Y-m-d")}}" required>
                             </div>
                         </div>
                         <div class="col-6">
@@ -145,19 +63,20 @@
         </div>
     </div>
 </div>
+{{--delete Modal--}}
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="delform"  method="post" >
+            <form id="delform"  method="post" action="{{route('driver.destroy',$driver->id)}}" method="post" >
                 {{csrf_field()}}
                 {{method_field('DELETE')}}
                 <div class="modal-header">
-                    <h2 class="modal-title" id="deldrive"></h2>
+                    <h2 class="modal-title" id="deldrive">{{$driver->driver}}</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <p>Chindanxam ushbu m'alumotlarni o'chirmoqchimisz?</p>
-                    <p class="text-danger"><small>O'chirilgan ma'lumot qayta tiklanmaydi!</small></p>
+
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -167,10 +86,11 @@
         </div>
     </div>
 </div>
+{{--edit Modal--}}
 <div id="editModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" id="editform"   method="POST">
+            <form role="form" id="editform" action="{{route('driver.update',$driver->id)}}"   method="POST">
                 {{csrf_field()}}
                 {{method_field('PUT')}}
                 <div class="modal-header">
@@ -182,65 +102,99 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Haydovchi.F.I.SH</label>
-                                <input type="text" class="form-control" name="driver" id="editdrive" required >
+                                <input type="text" class="form-control" name="driver" id="editdrive" value="{{$driver->driver}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Haydovchi.Tel</label>
-                                <input type="tel" class="form-control" name="tel_d" id="edittel_d" required >
+                                <input type="tel" class="form-control" name="tel_d" id="edittel_d" value="{{$driver->tel_d}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>AvtoEgasi.F.I.SH</label>
-                                <input type="text" class="form-control" name="owner" id="editowner" required >
+                                <input type="text" class="form-control" name="owner" id="editowner" value="{{$driver->owner}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>AvtoEgasi.Tel</label>
-                                <input type="tel" class="form-control" name="tel_o" id="edittel_o" required >
+                                <input type="tel" class="form-control" name="tel_o" id="edittel_o" value="{{$driver->tel_o}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>AvtoRusumi</label>
-                                <input type="text" class="form-control" name="car" id="editcar" required >
+                                <select type="text" name="car" class="form-control"  id="editcar">
+                                    <option value="Matiz" {{$driver->car == "Matiz" ? 'selected' : ''}}>Matiz</option>
+                                    <option value="Cobalt" {{$driver->car == "Cobalt" ? 'selected' : ''}}>Cobalt</option>
+                                    <option value="Nexia" {{$driver->car == "Nexia" ? 'selected' : ''}}>Nexia</option>
+                                    <option value="Damas" {{$driver->car == "Damas" ? 'selected' : ''}}>Damas</option>
+                                    <option value="Jentra" {{$driver->car == "Jentra" ? 'selected' : ''}}>Jentra</option>
+                                    <option value="Spark" {{$driver->car == "Spark" ? 'selected' : ''}}>Spark</option>
+                                    <option value="Malibu" {{$driver->car == "Malibu" ? 'selected' : ''}}>Malibu</option>
+                                    <option value="Captiva" {{$driver->car == "Captiva" ? 'selected' : ''}}>Captiva</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>DavlatRaqami</label>
-                                <input type="text" class="form-control" name="car_number"  id="editcar_number" required >
+                                <input type="text" class="form-control" name="car_number"  id="editcar_number"  value="{{$driver->car_number}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Litsenziya Chiqish Sanasi</label>
-                                <input type="date" class="form-control" name="l_start"  id="editl_start" required >
+                                <label>Litsenziya Berilgan sana</label>
+                                <input type="date" class="form-control" name="l_start"  id="editl_start" value="{{$driver->l_start}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Litsenziya Tugash Sanasi</label>
-                                <input type="date" class="form-control" name="l_end" id="editl_end" required >
+                                <input type="date" class="form-control" name="l_end" id="editl_end"  value="{{$driver->l_end}}" required >
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Umumiy To'lo'v Summasi</label>
-                                <input type="number" min="0" class="form-control"  name="total_cost" id="edittotal_cost" required >
+                                <label>Oylik To'lo'v</label>
+                                <input id="edittotal_cost" type="number" min="0" name="total_cost" class="form-control" value="{{$driver->total_cost}}" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Umumiy To'langan Summa</label>
-                                <input type="number" min="0" class="form-control" name="paid_cost"  id="editpaid_cost" required >
+                                <label>To'landi</label>
+                                <input id="editpaid_cost" type="number" min="0" name="paid_cost" class="form-control" value="{{$driver->paid_cost}}" required>
                             </div>
 
                         </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Filial Nomi</label>
+                                <input id="company"  type="text"  name="company" class="form-control" value="{{$driver->company}}" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Litsenziya uchun To'lov</label>
+                                <input id="l_cost" type="number" min="0" name="l_cost" class="form-control" value="{{$driver->l_cost}}" required>
+                            </div>
 
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>INN</label>
+                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn}}" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>INPS</label>
+                                <input id="inps" type="text"  name="inps" class="form-control" value="{{$driver->inps}}" required>
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>
@@ -253,3 +207,4 @@
         </div>
     </div>
 </div>
+

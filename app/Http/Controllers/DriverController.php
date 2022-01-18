@@ -19,7 +19,7 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            $driver->listAll();
+
         }
         $drivers = Driver::paginate(50);
         return view('all', compact('drivers'));
@@ -29,7 +29,7 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            $driver->isExpired();
+
         }
         $drivers = Driver::where('status', '<', 0)->paginate(50);
 
@@ -42,7 +42,7 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            $driver->isExpired();
+
         }
         $drivers = Driver::where('status', '=', 3)->paginate(50);
 
@@ -101,14 +101,26 @@ class DriverController extends Controller
             'tel_o' => ['required'],
             'car' => ['required'],
             'car_number' => ['required'],
+            'company'=>['required'],
             'l_start' => ['required'],
             'l_end' => ['required'],
+            'l_cost'=>['required'],
+            'c_start'=>['required'],
+            'c_end'=>['required'],
+            'inn'=>['required'],
+            'inps'=>['required'],
             'total_cost' => ['required'],
-            'paid_cost' => ['required']
+            'paid_cost' => ['required'],
+            'created_at'=>['required']
 
         ]);
 
         $driver = Driver::create($request->all());
+        $payment = new Payment();
+        $payment->driver_id = $driver->id;
+        $payment->payment = $request->paid_cost;
+        $payment->created_at = $request->created_at;
+        $payment->save();
         return redirect(route('driver.index'));
 
     }
@@ -121,6 +133,9 @@ class DriverController extends Controller
      */
     public function show($id)
     {
+        $driver = Driver::find($id);
+        $payments = Payment::where('driver_id',$id)->get();
+        return view('show',compact('driver','payments'));
 
     }
 
@@ -162,7 +177,7 @@ class DriverController extends Controller
         $driver = Driver::find($id);
         $driver->update($request->except('_token', '_method'));
 
-        return redirect(route('driver.index'))->with('message', 'driver update succesfully');
+        return redirect()->back();
 
     }
 
@@ -175,8 +190,9 @@ class DriverController extends Controller
         $payment = new Payment();
         $payment->driver_id = $driver->id;
         $payment->payment = $request->newpay;
+        $payment->created_at = $request->created_at;
         $payment->save();
-        return redirect(route('driver.index'));
+        return redirect()->back();
 
     }
 
@@ -213,10 +229,10 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
+
+
         Driver::where('id', $id)->delete();
-
-
-        return redirect()->back()->with('message', 'driver is deleted successfully');
+        return redirect(route('driver.index'));
 
     }
 }

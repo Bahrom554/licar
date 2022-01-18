@@ -21,12 +21,18 @@ class CreateDeletedDriversTable extends Migration
             $table->string('tel_o')->nullable();
             $table->string('car');
             $table->string('car_number');
+            $table->string('company');
+            $table->date('c_start');
+            $table->date('c_end');
+            $table->unsignedInteger('l_cost');
             $table->date('l_start');
             $table->date('l_end');
             $table->unsignedInteger('total_cost');
             $table->unsignedInteger('paid_cost');
             $table->integer('status')->nullable();
+            $table->integer('debt')->nullable();
             $table->timestamps();
+
         });
     }
 

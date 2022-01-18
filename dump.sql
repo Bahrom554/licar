@@ -30,11 +30,16 @@ CREATE TABLE `deleted_drivers` (
   `tel_o` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `car` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `car_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `c_start` date NOT NULL,
+  `c_end` date NOT NULL,
+  `l_cost` int unsigned NOT NULL,
   `l_start` date NOT NULL,
   `l_end` date NOT NULL,
   `total_cost` int unsigned NOT NULL,
   `paid_cost` int unsigned NOT NULL,
   `status` int DEFAULT NULL,
+  `debt` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -65,11 +70,18 @@ CREATE TABLE `drivers` (
   `tel_o` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `car` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `car_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `inn` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `inps` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `c_start` date NOT NULL,
+  `c_end` date NOT NULL,
+  `l_cost` int unsigned NOT NULL,
   `l_start` date NOT NULL,
   `l_end` date NOT NULL,
   `total_cost` int unsigned NOT NULL,
   `paid_cost` int unsigned NOT NULL,
   `status` int DEFAULT NULL,
+  `debt` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -82,7 +94,7 @@ CREATE TABLE `drivers` (
 
 LOCK TABLES `drivers` WRITE;
 /*!40000 ALTER TABLE `drivers` DISABLE KEYS */;
-INSERT INTO `drivers` VALUES (1,'Bahrom','Jamoldin','998560552','999004261','Cobalt','60 O 554 VA','2022-01-01','2022-06-01',1500,50,0,'2022-01-06 08:08:34','2022-01-06 08:13:02');
+INSERT INTO `drivers` VALUES (1,'akmal','Nozim','998560552','787878','Matiz','989898','sdsds','125478','214578','2022-01-02','2022-01-02',200,'2022-01-02','2022-01-02',400,100,NULL,NULL,'2022-01-17 19:00:00','2022-01-18 13:31:05');
 /*!40000 ALTER TABLE `drivers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +110,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,7 +119,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (27,'2014_10_12_000000_create_users_table',1),(28,'2014_10_12_100000_create_password_resets_table',1),(29,'2022_01_04_061332_create_drivers_table',1),(30,'2022_01_04_061620_create_payments_table',1),(31,'2022_01_05_093625_create_deleted_drivers_table',1);
+INSERT INTO `migrations` VALUES (42,'2014_10_12_000000_create_users_table',1),(43,'2014_10_12_100000_create_password_resets_table',1),(44,'2022_01_04_061332_create_drivers_table',1),(45,'2022_01_04_061620_create_payments_table',1),(46,'2022_01_05_093625_create_deleted_drivers_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +163,7 @@ CREATE TABLE `payments` (
   PRIMARY KEY (`id`),
   KEY `payments_driver_id_foreign` (`driver_id`),
   CONSTRAINT `payments_driver_id_foreign` FOREIGN KEY (`driver_id`) REFERENCES `drivers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,6 +172,7 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+INSERT INTO `payments` VALUES (1,1,100,'2022-01-17 19:00:00','2022-01-18 13:31:05');
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +203,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Litsenziyaol','Litsenziyaol@gmail.com',NULL,'$2y$10$1DB7BVp.P/xGMN/FFJobv.ypqctx1LX6PwMnUuSSg/HEH.zH2oKaK','mFdqDZO3KBpLRUAHlPRtoIV1eNyVObn51kibxjT3OSgb6la4UMpeSYHB3niY','2022-01-06 13:06:09','2022-01-06 13:06:11');
+INSERT INTO `users` VALUES (1,'Admin','Litsenziyaol@gmail.com',NULL,'$2y$10$o29N1N1HCi97VFGz6YtPl..lLu/jQrA3tw1sBh.F4RbJFPbb6PpRG',NULL,'2022-01-18 18:27:27','2022-01-18 18:27:28');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -203,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-06 22:14:36
+-- Dump completed on 2022-01-19  0:42:13

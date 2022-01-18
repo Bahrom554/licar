@@ -1,9 +1,4 @@
-html{
-    font-size: 16px;
-}
-.nav-item .nav-link{
-    font-size: 1.4rem;
-}
+
 .modal .modal-dialog {
     max-width: 800px;
 }
@@ -54,4 +49,128 @@ html{
     }
 
 }
+body{
+background:-webkit-linear-gradient(left, #3931af, #00c6ff);
+}
 
+html{
+    font-size: 16px;
+}
+.nav-item .nav-link{
+    font-size: 1.4rem;
+}
+.modal .modal-dialog {
+    max-width: 800px;
+}
+.nav-item{
+    border-radius: 10px;
+    padding: 0 30px;
+
+
+}
+
+
+.active_btn{
+    background-color: rgba(0, 255, 106, 0.87);
+}
+.time{
+    display: none ;
+}
+.active_tab{
+    display: flex;
+}
+
+.mainn{
+    margin-bottom: 100px;
+}
+
+body{
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+.profile-img{
+    text-align: center;
+}
+.profile-img img{
+    width: 70%;
+    height: 100%;
+}
+
+
+.profile-head h5{
+    font-size: 25px;
+}
+.profile-head h6{
+    color: #0062cc;
+    font-size: 20px;
+}
+
+.proile-rating{
+    font-size: 20px;
+    color: #818182;
+    margin: 15px 0;
+}
+.proile-rating span{
+    color: #495057;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link{
+    font-weight:600;
+    border: none;
+}
+.nav-tabs .nav-link.active{
+    border: none;
+    border-bottom:2px solid #0062cc;
+}
+.profile-work{
+    padding: 14%;
+    margin-top: -15%;
+}
+.profile-work p{
+    font-size: 12px;
+    color: #818182;
+    font-weight: 600;
+    margin-top: 10%;
+}
+.profile-work a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+.profile-work ul{
+    list-style: none;
+}
+.profile-tab label{
+    font-weight: 600;
+}
+.profile-tab p{
+    font-weight: 600;
+    color: #0062cc;
+}
+
+.table--history th,.table--history tr, .table--history td{
+    border: 1px solid black;
+    height: 70px;
+    padding: 0 15px;
+
+}
+
+.table--col{
+    padding: 0 !important;
+}
+.closer{
+    position: absolute;
+    top: 0;
+    right:0;
+    transform: translate(40%,-40%);
+    color: black;
+}
