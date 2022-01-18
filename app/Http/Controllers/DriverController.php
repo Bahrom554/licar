@@ -20,7 +20,7 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            if($driver->paid_cost >= $driver->total_cost && Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month){
+            if ($driver->paid_cost >= $driver->total_cost && Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month) {
                 $driver->paid_cost -= $driver->total_cost;
                 $driver->save();
             }
@@ -32,7 +32,7 @@ class DriverController extends Controller
 
     public function red()
     {
-        $drivers = Driver::where('expire_date' , '<' , Carbon::now())->paginate(50);
+        $drivers = Driver::where('expire_date', '<', Carbon::now())->paginate(50);
 
         return view('all', compact('drivers'));
 
@@ -46,6 +46,7 @@ class DriverController extends Controller
         return view('all', compact('drivers'));
 
     }
+
     public function redd()
     {
         $drivers = Driver::all();
@@ -70,7 +71,6 @@ class DriverController extends Controller
         return view('all', compact('drivers'));
 
     }
-
 
 
     /**
@@ -98,17 +98,17 @@ class DriverController extends Controller
             'tel_o' => ['required'],
             'car' => ['required'],
             'car_number' => ['required'],
-            'company'=>['required'],
+            'company' => ['required'],
             'l_start' => ['required'],
             'l_end' => ['required'],
-            'l_cost'=>['required'],
-            'c_start'=>['required'],
-            'c_end'=>['required'],
-            'inn'=>['required'],
-            'inps'=>['required'],
+            'l_cost' => ['required'],
+            'c_start' => ['required'],
+            'c_end' => ['required'],
+            'inn' => ['required'],
+            'inps' => ['required'],
             'total_cost' => ['required'],
             'paid_cost' => ['required'],
-            'created_at'=>['required']
+            'created_at' => ['required']
 
         ]);
 
@@ -141,8 +141,8 @@ class DriverController extends Controller
     public function show($id)
     {
         $driver = Driver::find($id);
-        $payments = Payment::where('driver_id',$id)->get();
-        return view('show',compact('driver','payments'));
+        $payments = Payment::where('driver_id', $id)->get();
+        return view('show', compact('driver', 'payments'));
 
     }
 
