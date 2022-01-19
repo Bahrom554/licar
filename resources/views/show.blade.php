@@ -4,13 +4,13 @@
     <div class=" emp-profile position-relative mx-2">
         <a href="{{route('driver.index')}}" class="closer"><i class="far fa-times-circle fa-3x"></i></a>
         <div class="row mainn">
-            <div class="col-lg-3  mt-2">
+            <div class="col-lg-2  mt-2">
                 <div class="profile-img">
                     <img src="{{asset('svg/download.png')}}" alt=""/>
 
                 </div>
             </div>
-            <div class="col-lg-2  mt-2 ">
+            <div class="col-lg-3  mt-2 ">
                 <div class="profile-head">
                     <h5 style="text-transform: uppercase">
                         {{$driver->driver}}
@@ -20,13 +20,27 @@
                     </h6>
                     <p class="proile-rating">INN: <span>{{$driver->inn}}</span></p>
                     <p class="proile-rating">INPS: <span>{{$driver->inps}}</span></p>
-                    <p class="proile-rating">Holati: <span class=" px-4 ml-3
-                         @if($driver->status == 3 || $driver->status == 2)
+                    <p class="proile-rating">Holati:<span class=" p-1
+                           @if($driver->status == 2 || $driver->debt == 2)
                             bg-warning
-                       @elseif($driver->status < 0 || $driver->status == 1)
+                          @elseif($driver->status ==1 || $driver->debt == 1)
                             bg-danger text-white
-                       @endif
-                        "></span></p>
+                          @else
+                            bg-success
+                          @endif
+                          ">
+                        @if($driver->status == 2 )
+                            L yaqn!
+                       @elseif($driver->status == 1 )
+                            L tugagan!!!
+                        @endif
+                        @if($driver->debt == 2)
+                            T yaqn!
+                        @elseif($driver->debt == 1)
+                            Qarzdor!!!
+                        @endif
+                        </span>
+                    </p>
                     <h5>{{$driver->company}}</h5>
                 </div>
             </div>

@@ -24,6 +24,7 @@ Route::group(['middleware'=>['auth']],function() {
     Route::Put('put/{driver}','DriverController@paid')->name('paid.driver');
     Route::get('redd','DriverController@redd')->name('redd.driver');
     Route::get('warnd','DriverController@warnd')->name('warnd.driver');
+    Route::get('trash','DriverController@del')->name('driver.trash');
 
     Route::get('/home', 'HomeController@index')->name('home');
 

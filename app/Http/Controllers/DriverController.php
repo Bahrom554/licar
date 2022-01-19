@@ -24,50 +24,51 @@ class DriverController extends Controller
                 $driver->paid_cost -= $driver->total_cost;
                 $driver->save();
             }
-
+            $driver->isDebt();
+            $driver->isDated();
         }
         $drivers = Driver::paginate(50);
         return view('all', compact('drivers'));
     }
+    public function del(){
+        $drivers= DeletedDriver::paginate(50);
+        return view('trashlist', compact('drivers'));
+
+    }
+
 
     public function red()
     {
-        $drivers = Driver::where('expire_date' , '<' , Carbon::now())->paginate(50);
 
-        return view('all', compact('drivers'));
+          $drivers = Driver::where('debt','=',1)->paginate(50);
+        return view('debtlist', compact('drivers'));
 
 
     }
 
     public function warn()
     {
-        $drivers = Driver::where('expire_date', '>', Carbon::now())->where('expire_date', '<', Carbon::now()->addDays(5))->paginate(50);
 
-        return view('all', compact('drivers'));
+        $drivers = Driver::where('debt','=',2)->paginate(50);
+        return view('debtlist', compact('drivers'));
 
     }
     public function redd()
     {
-        $drivers = Driver::all();
-        foreach ($drivers as $driver) {
-            $driver->isDated();
-        }
+
         $drivers = Driver::where('status', '=', 1)->paginate(50);
 
-        return view('all', compact('drivers'));
+        return view('expirelist', compact('drivers'));
 
 
     }
 
     public function warnd()
     {
-        $drivers = Driver::all();
-        foreach ($drivers as $driver) {
-            $driver->isDated();
-        }
+
         $drivers = Driver::where('status', '=', 2)->paginate(50);
 
-        return view('all', compact('drivers'));
+        return view('expirelist', compact('drivers'));
 
     }
 
@@ -174,12 +175,16 @@ class DriverController extends Controller
             'tel_o' => ['required'],
             'car' => ['required'],
             'car_number' => ['required'],
+            'company'=>['required'],
             'l_start' => ['required'],
             'l_end' => ['required'],
-            'total_cost' => ['required'],
-            'paid_cost' => ['required']
-
+            'l_cost'=>['required'],
+            'c_start'=>['required'],
+            'c_end'=>['required'],
+            'inn'=>['required'],
+            'inps'=>['required'],
         ]);
+
 
         $driver = Driver::find($id);
         $driver->update($request->except('_token', '_method'));

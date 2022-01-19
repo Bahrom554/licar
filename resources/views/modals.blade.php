@@ -158,14 +158,26 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
+                                <label>Shartnoma tuzilgan sana</label>
+                                <input type="date" class="form-control" name="c_start"  id="editl_start" value="{{$driver->c_start}}" required >
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Shartnoma tugash sanasi</label>
+                                <input type="date" class="form-control" name="c_end" id="editl_end"  value="{{$driver->c_end}}" required >
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
                                 <label>Oylik To'lo'v</label>
-                                <input id="edittotal_cost" type="number" min="0" name="total_cost" class="form-control" value="{{$driver->total_cost}}" required>
+                                <input id="edittotal_cost" type="number" min="0" name="total_cost" class="form-control" value="{{$driver->total_cost}}" disabled>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>To'landi</label>
-                                <input id="editpaid_cost" type="number" min="0" name="paid_cost" class="form-control" value="{{$driver->paid_cost}}" required>
+                                <input id="editpaid_cost" type="number" min="0" name="paid_cost" class="form-control" value="{{$driver->paid_cost}}" disabled>
                             </div>
 
                         </div>

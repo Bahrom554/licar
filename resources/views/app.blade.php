@@ -18,6 +18,7 @@
                     <a class=" nav-link text-white  bg-success text-center " href="{{route('driver.index')}}"><i
                             class="fas fa-list "></i> <span class="hid">Umumiy ro'yhat</span>
                     </a>
+
                 </div>
                 <div class="col-6">
                     <a class="nav-link text-white text-center " style="background-color: rgba(0, 217, 255, 0.801);"
@@ -78,8 +79,10 @@
             </div>
         </div>
     </div>
+    <div id="table">
     @section('main_content')
     @show
+    </div>
 </div>
 <!-- create Modal -->
 <div id="createModal" class="modal fade">
@@ -228,6 +231,34 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src=" {{asset('admin/js/jquery-3.4.1.slim.min.js')}}"></script>
 <script src=" {{asset('admin/js/bootstrap.bundle.min.js')}}"></script>
+<script>
+
+    let eltable = $('table');
+    function searchDrivers() {
+        console.log('ok');
+        let search = $('#search').val()
+        if(!search.trim()){
+            $("#table").html(eltable);
+            return;
+        }
+        if (search.length > 1 ) {
+
+            axios.get('{{url('/')}}' + '/search', {
+                params: {
+                    search: search
+                }
+            }).then(function (response) {
+                console.log(response);
+                $("#table").html(response.data.view)
+            })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
+
+    }
+
+</script>
 @section('jscode')
 @show
 <script src=" {{asset('admin/js/main.js')}}"></script>

@@ -1,8 +1,8 @@
 @extends('app')
 @section('main_content')
 
-    <div class="overflow-auto" style="height: 87vh;" id="table">
-        <table id="example" class="table  table-bordered">
+<div class="overflow-auto" style="height: 87vh;">
+<table id="example" class="table  table-bordered">
         <thead class="sticky-top bg-dark text-white">
         <tr>
             <th>#</th>
@@ -20,13 +20,12 @@
         </thead>
         <tbody>
         @foreach($drivers as $driver)
-            <tr id="tr" class="
-              @if($driver->status == 3 || $driver->status == 2)
+            <tr id="tr" class=" bg-success
+              @if($driver->status == 2 || $driver->debt == 2)
                 bg-warning
-             @elseif($driver->status < 0 || $driver->status == 1)
+                @endif
+             @if($driver->status ==1 || $driver->debt == 1)
                 bg-danger text-white
-                @else
-                bg-success
              @endif
                 ">
                 <td class="nr">{{$driver->id}}</td>
@@ -39,15 +38,21 @@
                 <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                 <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                 <td id="status" class="text-center">
-                    @if($driver->status == 3 )
-                     T yaqn!
-                    @elseif($driver->status == 2)
-                    L yaqn!
-                    @elseif($driver->status == 1)
-                    L tugagan!!!
-                    @elseif($driver->status < 0 )
-                    Qarzdor!!!
+                    @if($driver->status == 2 )
+                     L yaqn!
+                        <br>
+                    @elseif($driver->status == 1 )
+                        L tugagan!!!
+                        <br>
                     @endif
+
+                    @if($driver->debt == 2)
+                    T yaqn!
+                    @elseif($driver->debt == 1)
+                    Qarzdor!!!
+                        @endif
+
+
 
                 </td>
                 <td class="bg-white">
@@ -62,47 +67,14 @@
     </table>
 
 
-    </div>
+</div>
     <ul class="pagination justify-content-end mt-2 mr-3">
         {{$drivers->links()}}
     </ul>
 @endsection
 {{--pagination--}}
 
-@section('jscode')
 
-    <script>
-
-            let eltable = $('table');
-            function searchDrivers() {
-            let search = $('#search').val()
-            if(!search.trim()){
-            $("#table").html(eltable);
-            return;
-        }
-            if (search.length > 1 ) {
-
-            axios.get('{{url('/')}}' + '/search', {
-            params: {
-            search: search
-        }
-        }).then(function (response) {
-            console.log(response);
-            $("#table").html(response.data.view)
-        })
-            .catch(function (error) {
-            console.log(error);
-        })
-        }
-
-        }
-
-    </script>
-
-
-
-
-@endsection
 
 
 

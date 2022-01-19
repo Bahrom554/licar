@@ -1,3 +1,4 @@
+<div class="overflow-auto" style="height: 87vh;">
 <table id="example" class="table  table-bordered  ">
     <thead class="sticky-top bg-dark text-white">
     <tr>
@@ -20,12 +21,14 @@
     <tbody>
     @if($drivers->count() > 0)
         @foreach($drivers as $driver)
-            <tr id="tr" class="
-            @if($driver->status == 3 || $driver->status == 2)
+            <tr id="tr" class="bg-success
+              @if($driver->status == 2 || $driver->debt == 2)
                 bg-warning
-            @elseif($driver->status < 0 || $driver->status == 1)
+                @endif
+            @if($driver->status ==1 || $driver->debt == 1)
                 bg-danger text-white
-            @endif
+             @endif
+             @endif
                 ">
                 <td class="nr">{{$driver->id}}</td>
                 <td>{{$driver->company}}</td>
@@ -37,13 +40,17 @@
                 <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                 <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                 <td id="status" class="text-center">
-                    @if($driver->status == 3 )
-                        T yaqn!
-                    @elseif($driver->status == 2)
+                    @if($driver->status == 2 )
                         L yaqn!
-                    @elseif($driver->status == 1)
+                        <br>
+                    @elseif($driver->status == 1 )
                         L tugagan!!!
-                    @elseif($driver->status < 0 )
+                        <br>
+                    @endif
+
+                    @if($driver->debt == 2)
+                        T yaqn!
+                    @elseif($driver->debt == 1)
                         Qarzdor!!!
                     @endif
 
@@ -62,5 +69,6 @@
     </tbody>
 
 </table>
+</div>
 
 
