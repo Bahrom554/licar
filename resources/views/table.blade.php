@@ -28,7 +28,6 @@
             @if($driver->status ==1 || $driver->debt == 1)
                 bg-danger text-white
              @endif
-             @endif
                 ">
                 <td class="nr">{{$driver->id}}</td>
                 <td>{{$driver->company}}</td>
