@@ -99,28 +99,52 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label>Haydovchi.F.I.SH</label>
                                 <input type="text" class="form-control" name="driver" id="editdrive" value="{{$driver->driver}}" required >
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label>Haydovchi.Tel</label>
                                 <input type="tel" class="form-control" name="tel_d" id="edittel_d" value="{{$driver->tel_d}}" required >
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>INN</label>
+                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn}}" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>INPS</label>
+                                <input id="inps" type="text"  name="inps" class="form-control" value="{{$driver->inps}}" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <div class="form-group">
                                 <label>AvtoEgasi.F.I.SH</label>
                                 <input type="text" class="form-control" name="owner" id="editowner" value="{{$driver->owner}}" required >
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label>AvtoEgasi.Tel</label>
                                 <input type="tel" class="form-control" name="tel_o" id="edittel_o" value="{{$driver->tel_o}}" required >
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>INN</label>
+                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn_o}}" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>INPS</label>
+                                <input id="inps" type="text"  name="inps" class="form-control" value="{{$driver->inps_o}}" required>
                             </div>
                         </div>
                         <div class="col-6">
@@ -194,19 +218,7 @@
                             </div>
 
                         </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>INN</label>
-                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn}}" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>INPS</label>
-                                <input id="inps" type="text"  name="inps" class="form-control" value="{{$driver->inps}}" required>
-                            </div>
 
-                        </div>
 
                     </div>
                 </div>

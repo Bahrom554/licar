@@ -9,7 +9,7 @@ class Driver extends Model
 {
     protected $fillable = [
         'created_at', 'driver', 'tel_d', 'owner', 'tel_o', 'car_number', 'car', 'l_start', 'l_end', 'total_cost', 'paid_cost', 'company', 'l_cost',
-        'c_start', 'c_end', 'inn', 'inps', 'expire_date'
+        'c_start', 'c_end', 'inn', 'inps', 'expire_date','inn_o','inps_o'
     ];
 
 

@@ -83,6 +83,18 @@
                             <div class="col-6">
                                 <p>{{$driver->tel_o}}</p>
                             </div>
+                            <div class="col-6 ">
+                                <label>INN</label>
+                            </div>
+                            <div class="col-6">
+                                <p>{{$driver->inn_o}}</p>
+                            </div>
+                            <div class="col-6 ">
+                                <label>INPS</label>
+                            </div>
+                            <div class="col-6">
+                                <p>{{$driver->inps_o}}</p>
+                            </div>
 
 
                         </div>

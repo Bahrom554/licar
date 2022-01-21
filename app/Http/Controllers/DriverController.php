@@ -110,6 +110,8 @@ class DriverController extends Controller
             'c_end' => ['required'],
             'inn' => ['required'],
             'inps' => ['required'],
+            'inn_o'=>['required'],
+            'inps_o'=>['required'],
             'total_cost' => ['required'],
             'paid_cost' => ['required'],
             'created_at' => ['required']
@@ -186,6 +188,8 @@ class DriverController extends Controller
             'c_end'=>['required'],
             'inn'=>['required'],
             'inps'=>['required'],
+            'inn_o'=>['required'],
+            'inps_o'=>['required'],
         ]);
 
 
@@ -221,6 +225,7 @@ class DriverController extends Controller
     {
         if ($value = $request->get('search')) {
             $drivers = Driver::where('driver', 'like', '%' . $value . '%')
+                ->orWhere('company', 'like', '%' . $value . '%')
                 ->orWhere('owner', 'like', '%' . $value . '%')
                 ->orWhere('tel_d', 'like', '%' . $value . '%')
                 ->orWhere('tel_o', 'like', '%' . $value . '%')

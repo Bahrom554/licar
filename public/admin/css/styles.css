@@ -41,14 +41,27 @@
     .hid{
         display: block;
     }
+    .ff{
+        display: none;
+    }
 
 }
 @media(max-width:1300px) {
     .hid{
         display: none;
     }
+    .ff{
+        display: block;
+    }
 
 }
+@media(max-width:1000px){
+    .gg{
+        display: none;
+    }
+}
+
+
 body{
 background:-webkit-linear-gradient(left, #3931af, #00c6ff);
 }
@@ -89,7 +102,7 @@ body{
 }
 .emp-profile{
     padding: 3%;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-bottom: 3%;
     border-radius: 0.5rem;
     background: #fff;
