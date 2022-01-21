@@ -27,10 +27,14 @@ class CreateDriversTable extends Migration
             $table->date('c_start');
             $table->date('c_end');
             $table->unsignedInteger('l_cost');
+            $table->date('expire_date');
+            $table->string('inn_o');
+            $table->string('inps_o');
+            $table->boolean('index')->default(1);
             $table->date('l_start');
             $table->date('l_end');
             $table->unsignedInteger('total_cost');
-            $table->unsignedInteger('paid_cost');
+            $table->integer('paid_cost');
             $table->integer('status')->nullable();
             $table->integer('debt')->nullable();
             $table->timestamps();

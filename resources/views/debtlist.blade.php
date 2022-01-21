@@ -13,7 +13,7 @@
                 <th>Shartnoma Muddati</th>
                 <th>Litsenziya Muddati</th>
                 <th>To'lovSummasi</th>
-                <th>To'langanSumma</th>
+                <th>Balans</th>
                 <th>Holati</th>
                 <th>Sozlash</th>
             </tr>
@@ -21,11 +21,11 @@
             <tbody>
             @foreach($drivers as $driver)
                 <tr id="tr" class="
-              @if( $driver->debt == 2)
-                    bg-warning
-            @else
+                @if($driver->expire_date < (\Carbon\Carbon::now()) )
                     bg-danger text-white
-            @endif
+                @else
+                    bg-warning
+                 @endif
                     ">
                     <td class="nr">{{$driver->id}}</td>
                     <td>{{$driver->company}}</td>
@@ -37,12 +37,13 @@
                     <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                     <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                     <td id="status" class="text-center">
-                        @if($driver->debt == 2)
-                            T yaqn!
-                        @else
-                            Qarzdor !!!
-                        @endif
 
+
+                        @if($driver->expire_date < (\Carbon\Carbon::now()) )
+                            Qarzdor!!!
+                        @else
+                            T yaqn!
+                        @endif
 
 
                     </td>
@@ -58,7 +59,7 @@
         </table>
 
 
-</div>
+    </div>
     <ul class="pagination justify-content-end mt-2 mr-3">
         {{$drivers->links()}}
     </ul>

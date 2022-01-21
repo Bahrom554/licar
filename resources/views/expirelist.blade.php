@@ -13,7 +13,7 @@
                 <th>Shartnoma Muddati</th>
                 <th>Litsenziya Muddati</th>
                 <th>To'lovSummasi</th>
-                <th>To'langanSumma</th>
+                <th>Balans</th>
                 <th>Holati</th>
                 <th>Sozlash</th>
             </tr>
@@ -21,11 +21,11 @@
             <tbody>
             @foreach($drivers as $driver)
                 <tr id="tr" class="
-              @if($driver->status == 2 )
-                    bg-warning
-             @else
+             @if($driver->l_end < (\Carbon\Carbon::now()) )
                     bg-danger text-white
-                @endif
+                @else
+                    bg-warning
+                 @endif
                     ">
                     <td class="nr">{{$driver->id}}</td>
                     <td>{{$driver->company}}</td>
@@ -37,10 +37,10 @@
                     <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                     <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                     <td id="status" class="text-center">
-                        @if($driver->status == 2 )
-                            L yaqn!
+                        @if($driver->l_end < (\Carbon\Carbon::now()) )
+                            L Tugagan!!!
                         @else
-                            L tugagan!!!
+                            L yaqn!
                         @endif
 
 

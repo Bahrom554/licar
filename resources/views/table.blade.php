@@ -11,7 +11,7 @@
         <th>Shartnoma Muddati</th>
         <th>Litsenziya Muddati</th>
         <th>To'lovSummasi</th>
-        <th>To'langanSumma</th>
+        <th>Balans</th>
         <th>Holati</th>
         <th>Sozlash</th>
 
@@ -22,10 +22,10 @@
     @if($drivers->count() > 0)
         @foreach($drivers as $driver)
             <tr id="tr" class="bg-success
-              @if($driver->status == 2 || $driver->debt == 2)
+               @if($driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) || $driver->expire_date < (\Carbon\Carbon::now()->addDays(5)))
                 bg-warning
                 @endif
-            @if($driver->status ==1 || $driver->debt == 1)
+            @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->expire_date  <  (\Carbon\Carbon::now()))
                 bg-danger text-white
              @endif
                 ">
@@ -39,17 +39,17 @@
                 <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                 <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                 <td id="status" class="text-center">
-                    @if($driver->status == 2 )
+                    @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
                         L yaqn!
                         <br>
-                    @elseif($driver->status == 1 )
+                    @elseif($driver-> l_end < (\Carbon\Carbon::now()) )
                         L tugagan!!!
                         <br>
                     @endif
 
-                    @if($driver->debt == 2)
+                    @if($driver-> expire_date > (\Carbon\Carbon::now()) && $driver-> expire_date < (\Carbon\Carbon::now()->addDays(5)) )
                         T yaqn!
-                    @elseif($driver->debt == 1)
+                    @elseif($driver->expire_date < (\Carbon\Carbon::now()) )
                         Qarzdor!!!
                     @endif
 

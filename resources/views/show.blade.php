@@ -20,25 +20,24 @@
                     </h6>
                     <p class="proile-rating">INN: <span>{{$driver->inn}}</span></p>
                     <p class="proile-rating">INPS: <span>{{$driver->inps}}</span></p>
-                    <p class="proile-rating">Holati:<span class=" p-1
-                           @if($driver->status == 2 || $driver->debt == 2)
+                    <p class="proile-rating">Holati:<span class=" p-1 bg-success
+                         @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) ||  $driver->expire_date < (\Carbon\Carbon::now()->addDays(5)))
                             bg-warning
-                          @elseif($driver->status ==1 || $driver->debt == 1)
+                      @endif
+                        @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->expire_date  <  (\Carbon\Carbon::now()))
                             bg-danger text-white
-                          @else
-                            bg-success
-                          @endif
+                       @endif
                           ">
-                        @if($driver->status == 2 )
-                            L yaqn!
-                       @elseif($driver->status == 1 )
-                            L tugagan!!!
-                        @endif
-                        @if($driver->debt == 2)
-                            T yaqn!
-                        @elseif($driver->debt == 1)
-                            Qarzdor!!!
-                        @endif
+                            @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
+                                L yaqn!
+                            @elseif($driver-> l_end < (\Carbon\Carbon::now()) )
+                                L tugagan!!!
+                            @endif
+                            @if($driver-> expire_date > (\Carbon\Carbon::now()) && $driver-> expire_date < (\Carbon\Carbon::now()->addDays(5)) )
+                                T yaqn!
+                            @elseif($driver->expire_date < (\Carbon\Carbon::now()) )
+                                Qarzdor!!!
+                            @endif
                         </span>
                     </p>
                     <h5>{{$driver->company}}</h5>
@@ -146,7 +145,7 @@
                                      {{number_format($driver->total_cost,0,',',' ')}} so'm</p>
                             </div>
                             <div class="col-6 ">
-                                <label>To'landi</label>
+                                <label>Balans</label>
                             </div>
                             <div class="col-6">
                                 <p>{{number_format($driver->paid_cost,0,',',' ')}} so'm</p>

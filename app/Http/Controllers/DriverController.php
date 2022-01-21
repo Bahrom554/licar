@@ -20,18 +20,24 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            if ($driver->paid_cost >= $driver->total_cost && Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month) {
+            if (Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month && $driver->index == 1) {
                 $driver->paid_cost -= $driver->total_cost;
+                $driver->index = 0;
                 $driver->save();
             }
-            $driver->isDebt();
-            $driver->isDated();
+            if (Carbon::parse($driver->created_at)->addDays(2)->day === Carbon::now()->day) {
+                $driver->index = 1;
+                $driver->save();
+            }
+
         }
         $drivers = Driver::paginate(50);
         return view('all', compact('drivers'));
     }
-    public function del(){
-        $drivers= DeletedDriver::paginate(50);
+
+    public function del()
+    {
+        $drivers = DeletedDriver::paginate(50);
         return view('trashlist', compact('drivers'));
 
     }
@@ -41,9 +47,7 @@ class DriverController extends Controller
     {
 
         $drivers = Driver::where('expire_date', '<', Carbon::now())->paginate(50);
-
-
-          $drivers = Driver::where('debt','=',1)->paginate(50);
+//     $drivers = Driver::where('debt','=',1)->paginate(50);
         return view('debtlist', compact('drivers'));
 
 
@@ -52,7 +56,8 @@ class DriverController extends Controller
     public function warn()
     {
 
-        $drivers = Driver::where('debt','=',2)->paginate(50);
+        $drivers = Driver::where('expire_date', '>', Carbon::now())->where('expire_date', '<', Carbon::now()->addDays(5))->paginate(50);
+
         return view('debtlist', compact('drivers'));
 
     }
@@ -60,7 +65,7 @@ class DriverController extends Controller
     public function redd()
     {
 
-        $drivers = Driver::where('status', '=', 1)->paginate(50);
+        $drivers = Driver::where('l_end', '<', Carbon::now())->paginate(50);
 
         return view('expirelist', compact('drivers'));
 
@@ -70,7 +75,7 @@ class DriverController extends Controller
     public function warnd()
     {
 
-        $drivers = Driver::where('status', '=', 2)->paginate(50);
+        $drivers = Driver::where('l_end', '>', Carbon::now())->where('l_end', '<', Carbon::now()->addDays(5))->paginate(50);
 
         return view('expirelist', compact('drivers'));
 
@@ -110,8 +115,8 @@ class DriverController extends Controller
             'c_end' => ['required'],
             'inn' => ['required'],
             'inps' => ['required'],
-            'inn_o'=>['required'],
-            'inps_o'=>['required'],
+            'inn_o' => ['required'],
+            'inps_o' => ['required'],
             'total_cost' => ['required'],
             'paid_cost' => ['required'],
             'created_at' => ['required']
@@ -180,16 +185,16 @@ class DriverController extends Controller
             'tel_o' => ['required'],
             'car' => ['required'],
             'car_number' => ['required'],
-            'company'=>['required'],
+            'company' => ['required'],
             'l_start' => ['required'],
             'l_end' => ['required'],
-            'l_cost'=>['required'],
-            'c_start'=>['required'],
-            'c_end'=>['required'],
-            'inn'=>['required'],
-            'inps'=>['required'],
-            'inn_o'=>['required'],
-            'inps_o'=>['required'],
+            'l_cost' => ['required'],
+            'c_start' => ['required'],
+            'c_end' => ['required'],
+            'inn' => ['required'],
+            'inps' => ['required'],
+            'inn_o' => ['required'],
+            'inps_o' => ['required'],
         ]);
 
 
