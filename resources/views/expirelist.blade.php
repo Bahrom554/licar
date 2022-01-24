@@ -9,6 +9,12 @@
                 <th>Filial</th>
                 <th>Haydovchi</th>
                 <th>Tel</th>
+                <th class="d-none">INN</th>
+                <th class="d-none">INPS</th>
+                <th class="d-none">Avtomabil Egasi</th>
+                <th class="d-none">Avtomabil Egasi Tel</th>
+                <th class="d-none">INN</th>
+                <th class="d-none">INPS</th>
                 <th>Avtomobil</th>
                 <th>Shartnoma Muddati</th>
                 <th>Litsenziya Muddati</th>
@@ -31,6 +37,12 @@
                     <td>{{$driver->company}}</td>
                     <td>{{$driver->driver}}</td>
                     <td>{{$driver->tel_d}}</td>
+                    <td class="d-none">{{$driver->inn}}</td>
+                    <td class="d-none">{{$driver->inps}}</td>
+                    <td class="d-none">{{$driver->owner}}</td>
+                    <td class="d-none">{{$driver->tel_o}}</td>
+                    <td class="d-none">{{$driver->inn_o}}</td>
+                    <td class="d-none">{{$driver->inps_o}}</td>
                     <td>{{$driver->car}} <br> {{$driver->car_number}}</td>
                     <td>{{$driver->c_start}} dan<br> {{$driver->c_end}} gacha</td>
                     <td>{{$driver->l_start}} dan<br> {{$driver->l_end}} gacha</td>
