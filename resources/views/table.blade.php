@@ -18,6 +18,7 @@
         <th>Litsenziya Muddati</th>
         <th>To'lovSummasi</th>
         <th>Balans</th>
+        <th>Qarzi <a href="{{route('driver.create')}}" class="text-white"><i class="ml-2 fas fa-sync"></i></a></th>
         <th>Holati</th>
         <th>Sozlash</th>
 
@@ -50,9 +51,10 @@
                 <td>{{$driver->l_start}} dan<br> {{$driver->l_end}} gacha</td>
                 <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                 <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
+                <td> {{number_format($driver->debt,0,',',' ')}}</td>
                 <td id="status" class="text-center">
                     @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
-                        L yaqn!
+                        L yaqin!
                         <br>
                     @elseif($driver-> l_end < (\Carbon\Carbon::now()) )
                         L tugagan!!!
@@ -60,7 +62,7 @@
                     @endif
 
                     @if($driver-> expire_date > (\Carbon\Carbon::now()) && $driver-> expire_date < (\Carbon\Carbon::now()->addDays(5)) )
-                        T yaqn!
+                        T yaqin!
                     @elseif($driver->expire_date < (\Carbon\Carbon::now()) )
                         Qarzdor!!!
                     @endif

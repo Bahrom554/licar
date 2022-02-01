@@ -29,12 +29,12 @@
                        @endif
                           ">
                             @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
-                                L yaqn!
+                                L yaqin!
                             @elseif($driver-> l_end < (\Carbon\Carbon::now()) )
                                 L tugagan!!!
                             @endif
                             @if($driver-> expire_date > (\Carbon\Carbon::now()) && $driver-> expire_date < (\Carbon\Carbon::now()->addDays(5)) )
-                                T yaqn!
+                                T yaqin!
                             @elseif($driver->expire_date < (\Carbon\Carbon::now()) )
                                 Qarzdor!!!
                             @endif

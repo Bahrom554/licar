@@ -224,8 +224,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>To'landi</label>
-                                <input type="number" min="0" name="paid_cost" class="form-control" required>
+                                <label>Balans</label>
+                                <input type="number" name="paid_cost" class="form-control" required>
                             </div>
 
                         </div>

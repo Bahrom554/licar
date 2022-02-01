@@ -52,7 +52,7 @@
                         @if($driver->l_end < (\Carbon\Carbon::now()) )
                             L Tugagan!!!
                         @else
-                            L yaqn!
+                            L yaqin!
                         @endif
 
 

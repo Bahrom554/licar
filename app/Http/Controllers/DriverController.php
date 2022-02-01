@@ -89,7 +89,25 @@ class DriverController extends Controller
      */
     public function create()
     {
+        $drivers = Driver::where('expire_date', '<', Carbon::now())->get();
 
+        foreach ($drivers as $driver) {
+            $driver->debt = 0;
+            $total_cost = $driver->total_cost;
+            $daily = $total_cost / 30;
+            $date = Carbon::parse($driver->expire_date);
+            $now = Carbon::parse(Carbon::now());
+            $diff = $now->diffInDays($date);
+            $driver->debt -= $daily*$diff;
+            $driver->save();
+
+
+
+
+
+        }
+
+     return redirect()->back();
     }
 
     /**
@@ -133,12 +151,13 @@ class DriverController extends Controller
         $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
         /**/
         $driver->save();
-
-        $payment = new Payment();
-        $payment->driver_id = $driver->id;
-        $payment->payment = $request->paid_cost;
-        $payment->created_at = $request->created_at;
-        $payment->save();
+         if($request->paid_cost>0) {
+             $payment = new Payment();
+             $payment->driver_id = $driver->id;
+             $payment->payment = $request->paid_cost;
+             $payment->created_at = $request->created_at;
+             $payment->save();
+         }
         return redirect(route('driver.index'));
 
     }
