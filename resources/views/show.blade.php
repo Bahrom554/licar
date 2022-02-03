@@ -165,6 +165,7 @@
         </div>
         <hr>
         <h2 class="text-center mt-md-5">To'lovlar Tarixi</h2>
+
         <div class="row ">
             <div class="col-2 col-md-1 table--col ">
                 <table class="table--history ml-auto my-5">
@@ -180,6 +181,7 @@
                 <div class="overflow-auto">
                     <table class="table--history my-5" >
                         <tr>
+
                         @foreach($payments as $payment)
                             <td style="white-space: nowrap"> {{$payment->created_at->format('Y-m-d')}}</td>
                             @endforeach

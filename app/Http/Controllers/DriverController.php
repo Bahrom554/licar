@@ -151,13 +151,13 @@ class DriverController extends Controller
         $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
         /**/
         $driver->save();
-         if($request->paid_cost>0) {
+
              $payment = new Payment();
              $payment->driver_id = $driver->id;
              $payment->payment = $request->paid_cost;
              $payment->created_at = $request->created_at;
              $payment->save();
-         }
+
         return redirect(route('driver.index'));
 
     }
@@ -286,4 +286,5 @@ class DriverController extends Controller
         return redirect(route('driver.index'));
 
     }
+
 }
