@@ -20,7 +20,7 @@ class DriverController extends Controller
     {
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            if (Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month && $driver->index == 1) {
+            if (Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month && $driver->l_end > Carbon::now() && $driver->index == 1) {
                 $driver->paid_cost -= $driver->total_cost;
                 $driver->index = 0;
                 $driver->save();
@@ -92,19 +92,23 @@ class DriverController extends Controller
         $drivers = Driver::where('expire_date', '<', Carbon::now())->get();
 
         foreach ($drivers as $driver) {
-            $driver->debt = 0;
-            $total_cost = $driver->total_cost;
-            $daily = $total_cost / 30;
-            $date = Carbon::parse($driver->expire_date);
-            $now = Carbon::parse(Carbon::now());
-            $diff = $now->diffInDays($date);
-            $driver->debt -= $daily*$diff;
-            $driver->save();
+                $driver->debt = 0;
+                $total_cost = $driver->total_cost;
+                $daily = $total_cost / 30;
+                $date = Carbon::parse($driver->expire_date);
+                $now = Carbon::parse(Carbon::now());
+                $l_end = Carbon::parse($driver->l_end);
+            if($driver->l_end >= Carbon::now()){
+                $diff = $now->diffInDays($date);
+                $driver->debt -= $daily*$diff;
+                $driver->save();
+            }
+            else if($driver->l_end < Carbon::now() && $driver->l_end > $driver->expire_date){
+                $diff = $l_end->diffInDays($date);
+                $driver->debt -= $daily*$diff;
+                $driver->save();
 
-
-
-
-
+            }
         }
 
      return redirect()->back();
@@ -197,7 +201,8 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
+
+        $this->validate($request, [
             'driver' => ['required', 'string', 'max:255'],
             'tel_d' => ['required'],
             'owner' => ['required', 'string', 'max:255'],
@@ -213,13 +218,11 @@ class DriverController extends Controller
             'inn' => ['required'],
             'inps' => ['required'],
             'inn_o' => ['required'],
-            'inps_o' => ['required'],
+            'inps_o' => ['required']
         ]);
-
 
         $driver = Driver::find($id);
         $driver->update($request->except('_token', '_method'));
-
         return redirect()->back();
 
     }

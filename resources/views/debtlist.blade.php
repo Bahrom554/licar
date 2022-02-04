@@ -44,9 +44,9 @@
                     <td class="d-none">{{$driver->tel_o}}</td>
                     <td class="d-none">{{$driver->inn_o}}</td>
                     <td class="d-none">{{$driver->inps_o}}</td>
-                    <td>{{$driver->car}} <br> {{$driver->car_number}}</td>
-                    <td>{{$driver->c_start}} dan<br> {{$driver->c_end}} gacha</td>
-                    <td>{{$driver->l_start}} dan<br> {{$driver->l_end}} gacha</td>
+                    <td>{{$driver->car}}  {{$driver->car_number}}</td>
+                    <td>{{$driver->c_start}} dan {{$driver->c_end}} gacha</td>
+                    <td>{{$driver->l_start}} dan {{$driver->l_end}} gacha</td>
                     <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                     <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                     <td> {{number_format($driver->debt,0,',',' ')}}</td>

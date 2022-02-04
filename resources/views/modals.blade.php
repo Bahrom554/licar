@@ -102,7 +102,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Haydovchi.F.I.SH</label>
-                                <input type="text" class="form-control" name="driver" id="editdrive" value="{{$driver->driver}}" required >
+                                <input type="text" class="form-control" name="driver" id="editdrive" value="{{$driver->driver}}"  required >
                             </div>
                         </div>
                         <div class="col-4">
@@ -114,7 +114,7 @@
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INN</label>
-                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn}}" required>
+                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn}}" required >
                             </div>
                         </div>
                         <div class="col-2">
@@ -132,19 +132,19 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label>AvtoEgasi.Tel</label>
-                                <input type="tel" class="form-control" name="tel_o" id="edittel_o" value="{{$driver->tel_o}}" required >
+                                <input type="tel" class="form-control" name="tel_o" id="edittel_o" value="{{$driver->tel_o}}"  required >
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INN</label>
-                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn_o}}" required>
+                                <input id="inn" type="text"  name="inn_o" class="form-control" value="{{$driver->inn_o}}" required >
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INPS</label>
-                                <input id="inps" type="text"  name="inps" class="form-control" value="{{$driver->inps_o}}" required>
+                                <input id="inps" type="text"  name="inps_o" class="form-control" value="{{$driver->inps_o}}" required >
                             </div>
                         </div>
                         <div class="col-6">
@@ -165,13 +165,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>DavlatRaqami</label>
-                                <input type="text" class="form-control" name="car_number"  id="editcar_number"  value="{{$driver->car_number}}" required >
+                                <input type="text" class="form-control" name="car_number"  id="editcar_number"  value="{{$driver->car_number}}"  required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Litsenziya Berilgan sana</label>
-                                <input type="date" class="form-control" name="l_start"  id="editl_start" value="{{$driver->l_start}}" required >
+                                <input type="date" class="form-control" name="l_start"  id="editl_start" value="{{$driver->l_start}}"  required>
                             </div>
                         </div>
                         <div class="col-6">
@@ -183,13 +183,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Shartnoma tuzilgan sana</label>
-                                <input type="date" class="form-control" name="c_start"  id="editl_start" value="{{$driver->c_start}}" required >
+                                <input type="date" class="form-control" name="c_start"  id="editl_start" value="{{$driver->c_start}}"  required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Shartnoma tugash sanasi</label>
-                                <input type="date" class="form-control" name="c_end" id="editl_end"  value="{{$driver->c_end}}" required >
+                                <input type="date" class="form-control" name="c_end" id="editl_end"  value="{{$driver->c_end}}"  required>
                             </div>
                         </div>
                         <div class="col-6">
