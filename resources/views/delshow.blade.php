@@ -27,7 +27,7 @@
                         @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->paid_cost < $driver->total_cost)
                             bg-danger text-white
                            @endif
-                          ">
+                            ">
                            @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
                                 L yaqin!
                                 <br>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-6">
                                 <p>
-                                     {{number_format($driver->total_cost,0,',',' ')}} so'm</p>
+                                    {{number_format($driver->total_cost,0,',',' ')}} so'm</p>
                             </div>
                             <div class="col-6 ">
                                 <label>Balans</label>
@@ -185,8 +185,8 @@
                     <table class="table--history my-5" >
                         <tr>
 
-                        @foreach($payments as $payment)
-                            <td style="white-space: nowrap"> {{$payment->created_at->format('Y-m-d')}}</td>
+                            @foreach($payments as $payment)
+                                <td style="white-space: nowrap"> {{$payment->created_at->format('Y-m-d')}}</td>
                             @endforeach
 
                         </tr>

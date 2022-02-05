@@ -21,7 +21,7 @@
             <th>Litsenziya Muddati</th>
             <th>To'lovSummasi</th>
             <th>Balans</th>
-            <th>Qarzi <a href="{{route('driver.create')}}" class="text-white"><i class="ml-2 fas fa-sync"></i></a></th>
+{{--            <th>Qarzi <a href="{{route('driver.create')}}" class="text-white"><i class="ml-2 fas fa-sync"></i></a></th>--}}
             <th>Holati</th>
             <th>Sozlash</th>
         </tr>
@@ -29,14 +29,14 @@
         <tbody>
         @foreach($drivers as $driver)
             <tr id="tr" class=" bg-success
-              @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) ||  $driver->expire_date < (\Carbon\Carbon::now()->addDays(5)))
+              @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
                 bg-warning
                 @endif
-             @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->expire_date  <  (\Carbon\Carbon::now()))
+             @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->paid_cost < $driver->total_cost)
                 bg-danger text-white
              @endif
                 ">
-                <td class="nr">{{$driver->id}}</td>
+                <td class="nr">{{$loop->index+1}}</td>
                 <td>{{$driver->company}}</td>
                 <td>{{$driver->driver}}</td>
                 <td>{{$driver->tel_d}}</td>
@@ -46,14 +46,14 @@
                 <td class="d-none">{{$driver->tel_o}}</td>
                 <td class="d-none">{{$driver->inn_o}}</td>
                 <td class="d-none">{{$driver->inps_o}}</td>
-                <td>{{$driver->car}} {{$driver->car_number}} </td>
-                <td>{{$driver->c_start}} dan  {{$driver->c_end}} gacha</td>
-                <td>{{$driver->l_start}} dan  {{$driver->l_end}} gacha</td>
+                <td>{{$driver->car}} / {{$driver->car_number}} </td>
+                <td>{{$driver->c_start}} / {{$driver->c_end}} </td>
+                <td>{{$driver->l_start}} / {{$driver->l_end}} </td>
                 <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                 <td class="puli">
                      {{number_format($driver->paid_cost,0,',',' ')}}
                 </td>
-                <td> {{number_format($driver->debt,0,',',' ')}}</td>
+{{--                <td> {{number_format($driver->debt,0,',',' ')}}</td>--}}
                 <td id="status" class="text-center">
                     @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
                      L yaqin!
@@ -63,9 +63,7 @@
                         <br>
                     @endif
 
-                        @if($driver-> expire_date > (\Carbon\Carbon::now()) && $driver-> expire_date < (\Carbon\Carbon::now()->addDays(5)) )
-                    T yaqin!
-                        @elseif($driver->expire_date < (\Carbon\Carbon::now()) )
+                        @if($driver->paid_cost < $driver->total_cost )
                     Qarzdor!!!
                         @endif
 

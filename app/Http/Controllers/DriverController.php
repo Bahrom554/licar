@@ -7,6 +7,7 @@ use App\Driver;
 use App\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class DriverController extends Controller
 {
@@ -18,14 +19,15 @@ class DriverController extends Controller
 
     public function index()
     {
+
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            if (Carbon::parse($driver->created_at)->day === Carbon::now()->day && Carbon::parse($driver->created_at)->month != Carbon::now()->month && $driver->l_end > Carbon::now() && $driver->index == 1) {
+            if (Carbon::parse($driver->l_start)->day === Carbon::now()->day && Carbon::parse($driver->l_start) != Carbon::now() && $driver->l_end > Carbon::now() && $driver->index == 1) {
                 $driver->paid_cost -= $driver->total_cost;
                 $driver->index = 0;
                 $driver->save();
             }
-            if (Carbon::parse($driver->created_at)->addDays(2)->day === Carbon::now()->day) {
+            if (Carbon::parse($driver->l_start)->addDays(2)->day === Carbon::now()->day) {
                 $driver->index = 1;
                 $driver->save();
             }
@@ -46,7 +48,7 @@ class DriverController extends Controller
     public function red()
     {
 
-        $drivers = Driver::where('expire_date', '<', Carbon::now())->paginate(50);
+        $drivers = Driver::whereColumn('paid_cost','<', 'total_cost')->paginate(50);
 //     $drivers = Driver::where('debt','=',1)->paginate(50);
         return view('debtlist', compact('drivers'));
 
@@ -56,8 +58,10 @@ class DriverController extends Controller
     public function warn()
     {
 
-        $drivers = Driver::where('expire_date', '>', Carbon::now())->where('expire_date', '<', Carbon::now()->addDays(5))->paginate(50);
-
+        $drivers = Driver::whereColumn('paid_cost','<','total_cost')->paginate(50);
+//        foreach ($drivers as $driver){
+//            if(Carbon::parse($driver->l_start)->addDays(25)->day < Carbon::now()->day)
+//        }
         return view('debtlist', compact('drivers'));
 
     }
@@ -89,29 +93,29 @@ class DriverController extends Controller
      */
     public function create()
     {
-        $drivers = Driver::where('expire_date', '<', Carbon::now())->get();
-
-        foreach ($drivers as $driver) {
-                $driver->debt = 0;
-                $total_cost = $driver->total_cost;
-                $daily = $total_cost / 30;
-                $date = Carbon::parse($driver->expire_date);
-                $now = Carbon::parse(Carbon::now());
-                $l_end = Carbon::parse($driver->l_end);
-            if($driver->l_end >= Carbon::now()){
-                $diff = $now->diffInDays($date);
-                $driver->debt -= $daily*$diff;
-                $driver->save();
-            }
-            else if($driver->l_end < Carbon::now() && $driver->l_end > $driver->expire_date){
-                $diff = $l_end->diffInDays($date);
-                $driver->debt -= $daily*$diff;
-                $driver->save();
-
-            }
-        }
-
-     return redirect()->back();
+//        $drivers = Driver::where('expire_date', '<', Carbon::now())->get();
+//
+//        foreach ($drivers as $driver) {
+//                $driver->debt = 0;
+//                $total_cost = $driver->total_cost;
+//                $daily = $total_cost / 30;
+//                $date = Carbon::parse($driver->expire_date);
+//                $now = Carbon::parse(Carbon::now());
+//                $l_end = Carbon::parse($driver->l_end);
+//            if($driver->l_end >= Carbon::now()){
+//                $diff = $now->diffInDays($date);
+//                $driver->debt -= $daily*$diff;
+//                $driver->save();
+//            }
+//            else if($driver->l_end < Carbon::now() && $driver->l_end > $driver->expire_date){
+//                $diff = $l_end->diffInDays($date);
+//                $driver->debt -= $daily*$diff;
+//                $driver->save();
+//
+//            }
+//        }
+//
+//     return redirect()->back();
     }
 
     /**
@@ -145,16 +149,16 @@ class DriverController extends Controller
 
         ]);
 
-        $driver = Driver::create($request->all() + ['expire_date' => $request->created_at]);
+        $driver = Driver::create($request->all()+ ['expire_date' => $request->created_at]);
         /**/
-        $total_cost = $driver->total_cost;
-        $daily = $total_cost / 30;
-
-        $days = (int)$request->paid_cost / $daily;
-
-        $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
-        /**/
-        $driver->save();
+//        $total_cost = $driver->total_cost;
+//        $daily = $total_cost / 30;
+//
+//        $days = (int)$request->paid_cost / $daily;
+//
+//        $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
+//        /**/
+//        $driver->save();
 
              $payment = new Payment();
              $payment->driver_id = $driver->id;
@@ -218,7 +222,8 @@ class DriverController extends Controller
             'inn' => ['required'],
             'inps' => ['required'],
             'inn_o' => ['required'],
-            'inps_o' => ['required']
+            'inps_o' => ['required'],
+            'total_cost' => ['required']
         ]);
 
         $driver = Driver::find($id);
@@ -232,10 +237,10 @@ class DriverController extends Controller
 
         $driver = Driver::find($id);
         /**/
-        $total_cost = $driver->total_cost;
-        $daily = $total_cost / 30;
-        $days = (int)$request->newpay / $daily;
-        $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
+//        $total_cost = $driver->total_cost;
+//        $daily = $total_cost / 30;
+//        $days = (int)$request->newpay / $daily;
+//        $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
         /**/
         $driver->paid_cost += $request->newpay;
         $driver->save();

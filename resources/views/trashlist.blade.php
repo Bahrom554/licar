@@ -15,18 +15,19 @@
                 <th>To'lovSummasi</th>
                 <th>To'langanSumma</th>
 
+
             </tr>
             </thead>
             <tbody>
             @foreach($drivers as $driver)
                 <tr id="tr" class=" bg-white" >
-                    <td >{{$driver->id}}</td>
+                    <td >{{$loop->index+1}}</td>
                     <td>{{$driver->company}}</td>
                     <td>{{$driver->driver}}</td>
                     <td>{{$driver->tel_d}}</td>
-                    <td>{{$driver->car}}  {{$driver->car_number}}</td>
-                    <td>{{$driver->c_start}} dan {{$driver->c_end}} gacha</td>
-                    <td>{{$driver->l_start}} dan {{$driver->l_end}} gacha</td>
+                    <td>{{$driver->car}} / {{$driver->car_number}}</td>
+                    <td>{{$driver->c_start}} / {{$driver->c_end}} </td>
+                    <td>{{$driver->l_start}} / {{$driver->l_end}} </td>
                     <td class="puli">{{number_format($driver->total_cost,0,',',' ')}}</td>
                     <td class="puli">{{number_format($driver->paid_cost,0,',',' ')}}</td>
                 </tr>

@@ -195,7 +195,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Oylik To'lo'v</label>
-                                <input id="edittotal_cost" type="number" min="0" name="total_cost" class="form-control" value="{{$driver->total_cost}}" disabled>
+                                <input id="edittotal_cost" type="number" min="0" name="total_cost" class="form-control" value="{{$driver->total_cost}}" required>
                             </div>
                         </div>
                         <div class="col-6">
