@@ -21,12 +21,14 @@
                     <p class="proile-rating">INN: <span>{{$driver->inn}}</span></p>
                     <p class="proile-rating">INPS: <span>{{$driver->inps}}</span></p>
                     <p class="proile-rating">Holati:<span class=" p-1 bg-success
-                          @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) ||(\Carbon\Carbon::parse($driver->l_start)->addDays(25)->day) < (\Carbon\Carbon::now()->day))
-                            bg-warning
-                           @endif
-                        @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->paid_cost < $driver->total_cost)
-                            bg-danger text-white
-                           @endif
+                            @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) || $driver->paid_cost >= 0 && (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(3)->day) ||
+                                                                                                       (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(2)->day) ||
+                                                                                                       (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(1)->day))
+                              bg-warning
+                            @endif
+                           @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->paid_cost < 0)
+                              bg-danger text-white
+                            @endif
                           ">
                            @if($driver-> l_end > (\Carbon\Carbon::now()) && $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) )
                                 L yaqin!
@@ -36,10 +38,12 @@
                                 <br>
                             @endif
 
-                            @if( $driver-> l_end > (\Carbon\Carbon::now()) && (\Carbon\Carbon::parse($driver->l_start)->addDays(25)->day) < (\Carbon\Carbon::now()->day) )
-                                T yaqin!
-                            @elseif($driver->paid_cost < $driver->total_cost )
+                            @if($driver->paid_cost < 0 )
                                 Qarzdor!!!
+                            @elseif($driver->paid_cost >= 0 && (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(3)->day) ||
+                                                               (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(2)->day) ||
+                                                               (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(1)->day))
+                                T yaqin!
                             @endif
                         </span>
                     </p>

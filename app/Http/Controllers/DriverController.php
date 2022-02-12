@@ -22,7 +22,7 @@ class DriverController extends Controller
 
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
-            if (Carbon::parse($driver->l_start)->day === Carbon::now()->day && Carbon::parse($driver->l_start) != Carbon::now() && $driver->l_end > Carbon::now() && $driver->index == 1) {
+            if (Carbon::parse($driver->l_start)->day === Carbon::now()->day && $driver->l_end > Carbon::now() && $driver->index == 1) {
                 $driver->paid_cost -= $driver->total_cost;
                 $driver->index = 0;
                 $driver->save();
@@ -48,7 +48,7 @@ class DriverController extends Controller
     public function red()
     {
 
-        $drivers = Driver::whereColumn('paid_cost','<', 'total_cost')->paginate(50);
+        $drivers = Driver::where('paid_cost','<', 0)->paginate(50);
 //     $drivers = Driver::where('debt','=',1)->paginate(50);
         return view('debtlist', compact('drivers'));
 
@@ -58,7 +58,7 @@ class DriverController extends Controller
     public function warn()
     {
 
-        $drivers = Driver::whereColumn('paid_cost','<','total_cost')->paginate(50);
+        $drivers = Driver::whereColumn('paid_cost','>=', 0)->paginate(50);
 //        foreach ($drivers as $driver){
 //            if(Carbon::parse($driver->l_start)->addDays(25)->day < Carbon::now()->day)
 //        }
@@ -223,7 +223,8 @@ class DriverController extends Controller
             'inps' => ['required'],
             'inn_o' => ['required'],
             'inps_o' => ['required'],
-            'total_cost' => ['required']
+            'total_cost' => ['required'],
+            'paid_cost' => ['required']
         ]);
 
         $driver = Driver::find($id);
@@ -242,7 +243,7 @@ class DriverController extends Controller
 //        $days = (int)$request->newpay / $daily;
 //        $driver->expire_date = Carbon::parse($driver->expire_date)->addDays($days);
         /**/
-        $driver->paid_cost += $request->newpay;
+        $driver->paid_cost += (int)$request->newpay;
         $driver->save();
         $payment = new Payment();
         $payment->driver_id = $driver->id;

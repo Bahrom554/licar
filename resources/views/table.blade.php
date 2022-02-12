@@ -29,10 +29,12 @@
     @if($drivers->count() > 0)
         @foreach($drivers as $driver)
             <tr id="tr" class="bg-success
-              @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)))
+               @if( $driver-> l_end < (\Carbon\Carbon::now()->addDays(5)) || $driver->paid_cost >= 0 && (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(3)->day) ||
+                                                                                                       (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(2)->day) ||
+                                                                                                       (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(1)->day))
                 bg-warning
                 @endif
-            @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->paid_cost < $driver->total_cost)
+            @if($driver-> l_end < (\Carbon\Carbon::now()) || $driver->paid_cost < 0)
                 bg-danger text-white
              @endif
                 ">
@@ -60,8 +62,13 @@
                         L tugagan!!!
                         <br>
                     @endif
-                    @if($driver->paid_cost < $driver->total_cost )
+
+                    @if($driver->paid_cost < 0 )
                         Qarzdor!!!
+                    @elseif($driver->paid_cost >= 0 && (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(3)->day) ||
+                                                       (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(2)->day) ||
+                                                       (\Carbon\Carbon::parse($driver->l_start)->day) === (\Carbon\Carbon::now()->addDays(1)->day))
+                        T yaqin!
                     @endif
 
 

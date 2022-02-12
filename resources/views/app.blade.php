@@ -136,13 +136,13 @@
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INN</label>
-                                <input type="text" name="inn" class="form-control" required>
+                                <input type="text" name="inn" maxlength="9" minlength="9" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INPS</label>
-                                <input type="text" name="inps" class="form-control" required>
+                                <input type="text" name="inps" maxlength="14" minlength="14"  class="form-control" required>
                             </div>
 
                         </div>
@@ -161,13 +161,13 @@
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INN</label>
-                                <input type="text" name="inn_o" class="form-control" required>
+                                <input type="text" name="inn_o" maxlength="9" minlength="9"  class="form-control" required>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INPS</label>
-                                <input type="text" name="inps_o" class="form-control" required>
+                                <input type="text" name="inps_o" maxlength="14" minlength="14"  class="form-control" required>
                             </div>
 
                         </div>
@@ -219,13 +219,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Oylik To'lo'v</label>
-                                <input type="number" min="0" name="total_cost" class="form-control" required>
+                                <input type="text"  name="total_cost" class="form-control loan_max_amount" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Balans</label>
-                                <input type="number" name="paid_cost" class="form-control" required>
+                                <input type="text" name="paid_cost" class="form-control loan_max_amount"  required>
                             </div>
 
                         </div>
@@ -238,7 +238,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Litsenziya uchun To'lov</label>
-                                <input type="number" min="0" name="l_cost" class="form-control" required>
+                                <input type="text"  name="l_cost" class="form-control loan_max_amount" required>
                             </div>
 
                         </div>
@@ -258,6 +258,7 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cleave.js@1.5.3/dist/cleave.min.js"></script>
 <script src=" {{asset('admin/js/jquery-3.4.1.slim.min.js')}}"></script>
 <script src=" {{asset('admin/js/bootstrap.bundle.min.js')}}"></script>
 <script>
@@ -299,7 +300,21 @@ function ExportToExcel(){
         }
 
     }
+//money format
+let elinputs = document.querySelectorAll('.loan_max_amount ');
+elinputs.forEach(inp => new Cleave(inp, {
+    numeral: true,
+    numeralThousandsGroupStyle: 'thousand'
+}));
+let elform = document.querySelectorAll('form');
+elform.forEach(function(form){
+    form.addEventListener('submit',function(){
+        elinputs.forEach(function(input){
+            input.value=parseInt(input.value.replace(/\D/g, ''))
 
+        })
+    })
+})
 </script>
 @section('jscode')
 @show

@@ -47,7 +47,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Yangi To'lo'v Qilish</label>
-                                <input type="number" min="0" class="form-control" name="newpay" placeholder="To'lo'v Summasini kiriting" required>
+                                <input type="text"  class="form-control loan_max_amount"  name="newpay" placeholder="To'lo'v Summasini kiriting" required>
                             </div>
                         </div>
 
@@ -114,13 +114,13 @@
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INN</label>
-                                <input id="inn" type="text"  name="inn" class="form-control" value="{{$driver->inn}}" required >
+                                <input id="inn" type="text"  name="inn" maxlength="9" minlength="9"  class="form-control" value="{{$driver->inn}}" required >
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INPS</label>
-                                <input id="inps" type="text"  name="inps" class="form-control" value="{{$driver->inps}}" required>
+                                <input id="inps" type="text"  name="inps" maxlength="14" minlength="14"  class="form-control" value="{{$driver->inps}}" required>
                             </div>
                         </div>
                         <div class="col-4">
@@ -138,13 +138,13 @@
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INN</label>
-                                <input id="inn" type="text"  name="inn_o" class="form-control" value="{{$driver->inn_o}}" required >
+                                <input id="inn" type="text"  name="inn_o" maxlength="9" minlength="9"  class="form-control" value="{{$driver->inn_o}}" required >
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <label>INPS</label>
-                                <input id="inps" type="text"  name="inps_o" class="form-control" value="{{$driver->inps_o}}" required >
+                                <input id="inps" type="text"  name="inps_o" maxlength="14" minlength="14"  class="form-control" value="{{$driver->inps_o}}" required >
                             </div>
                         </div>
                         <div class="col-6">
@@ -195,13 +195,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Oylik To'lo'v</label>
-                                <input id="edittotal_cost" type="number" min="0" name="total_cost" class="form-control" value="{{$driver->total_cost}}" required>
+                                <input id="edittotal_cost" type="text" name="total_cost" class="form-control loan_max_amount " value="{{$driver->total_cost}}" required>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label>To'landi</label>
-                                <input id="editpaid_cost" type="number" min="0" name="paid_cost" class="form-control" value="{{$driver->paid_cost}}" disabled>
+                                <label>Balansi</label>
+                                <input id="editpaid_cost" type="text"  name="paid_cost" class="loan_max_amount form-control" value="{{$driver->paid_cost}}" required>
                             </div>
 
                         </div>
@@ -214,7 +214,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Litsenziya uchun To'lov</label>
-                                <input id="l_cost" type="number" min="0" name="l_cost" class="form-control" value="{{$driver->l_cost}}" required>
+                                <input id="l_cost" type="text"  name="l_cost" class="form-control loan_max_amount"  value="{{$driver->l_cost}}" required>
                             </div>
 
                         </div>
