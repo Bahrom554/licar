@@ -310,7 +310,7 @@ let elform = document.querySelectorAll('form');
 elform.forEach(function(form){
     form.addEventListener('submit',function(){
         elinputs.forEach(function(input){
-            input.value=parseInt(input.value.replace(/\D/g, ''))
+            input.value=parseInt(input.value.replace(/,/g, ''))
 
         })
     })

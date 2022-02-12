@@ -22,7 +22,7 @@ class DriverController extends Controller
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
             if (Carbon::parse($driver->l_start)->day === Carbon::now()->day && $driver->l_end > Carbon::now() && $driver->index == 1) {
-                $driver->paid_cost -= $driver->total_cost;
+                (int)$driver->paid_cost -= (int)$driver->total_cost;
                 $driver->index = 0;
                 $driver->save();
             }
@@ -154,6 +154,7 @@ class DriverController extends Controller
 
         ]);
 
+
         $driver = Driver::create($request->all()+ ['expire_date' => $request->created_at]);
         /**/
 //        $total_cost = $driver->total_cost;
@@ -234,8 +235,6 @@ class DriverController extends Controller
 
         $driver = Driver::find($id);
         $driver->update($request->except('_token', '_method'));
-        $driver->index = 1;
-        $driver->save();
         return redirect()->back();
 
     }
