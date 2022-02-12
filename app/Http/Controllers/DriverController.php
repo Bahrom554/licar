@@ -17,9 +17,8 @@ class DriverController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function __construct()
     {
-
         $drivers = Driver::all();
         foreach ($drivers as $driver) {
             if (Carbon::parse($driver->l_start)->day === Carbon::now()->day && $driver->l_end > Carbon::now() && $driver->index == 1) {
@@ -27,12 +26,18 @@ class DriverController extends Controller
                 $driver->index = 0;
                 $driver->save();
             }
-            if (Carbon::parse($driver->l_start)->addDays(2)->day === Carbon::now()->day) {
+            if (Carbon::parse($driver->l_start)->day !== Carbon::now()->day && $driver->l_end > Carbon::now()) {
                 $driver->index = 1;
                 $driver->save();
             }
 
         }
+
+    }
+    public function index()
+    {
+
+        $drivers = Driver::all();
         $drivers = Driver::paginate(50);
         return view('all', compact('drivers'));
     }
@@ -229,6 +234,8 @@ class DriverController extends Controller
 
         $driver = Driver::find($id);
         $driver->update($request->except('_token', '_method'));
+        $driver->index = 1;
+        $driver->save();
         return redirect()->back();
 
     }
