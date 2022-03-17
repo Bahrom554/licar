@@ -73,6 +73,7 @@
                             <i class="fas fa-chevron-circle-down fa-lg mt-1"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"  style="z-index: 1030">
+                        <a class="dropdown-item" href="{{route('payment.index')}}"><i class="fas fa-dollar-sign mx-2"></i>Kunlik Summa</a>
                             <a class="dropdown-item" href="{{route('driver.trash')}}"><i class="fas fa-trash mx-2"></i> Karzinka</a>
                             <button class="dropdown-item " onclick="ExportToExcel()" ><i class="fas fa-file-excel mx-2"></i> Excel</button>
                             <div class="dropdown-item">

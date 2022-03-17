@@ -19,6 +19,7 @@ Route::group(['middleware'=>['auth']],function() {
     });
     Route::get('/search', 'DriverController@search');
     Route::resource('driver','DriverController');
+    Route::resource('payment','PaymentController');
     Route::get('reddriver','DriverController@red')->name('red.driver');
     Route::get('warndriver','DriverController@warn')->name('warn.driver');
     Route::Put('put/{driver}','DriverController@paid')->name('paid.driver');

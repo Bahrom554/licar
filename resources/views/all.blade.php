@@ -39,7 +39,7 @@
              @endif
                 ">
                 <td class="nr">{{$loop->index+1}}</td>
-                <td>{{$driver->company}}</td>
+                <td> <a  style="color: inherit" href="{{route('payment.show',$driver  ->id)}}">{{$driver->company}}</a></td>
                 <td>{{$driver->driver}}</td>
                 <td>{{$driver->tel_d}}</td>
                 <td class="d-none">{{$driver->inn}}</td>

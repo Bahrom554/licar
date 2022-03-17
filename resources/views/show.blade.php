@@ -197,7 +197,19 @@
                         <tr>
 
                             @foreach($payments as $payment)
-                                <td> {{number_format($payment->payment,0,',',' ')}} sum</td>
+                                <td class="pay text-truncate"  > {{number_format($payment->payment,0,',',' ')}} sum
+                                    <form id="delete-form-{{$payment->id}}" action="{{route('payment.destroy',$payment->id)}}" method="post"  style="display: none">
+                                        {{csrf_field()}}
+                                        {{method_field('DELETE')}}
+                                    </form>
+
+                                    <span class="cost"><a href=""  onclick="
+                                            if(confirm('Chindan ham O\'chirmoqchimisz?')){
+                                            event.preventDefault();
+                                            document.getElementById('delete-form-{{$payment->id}}').submit();}
+                                            else{
+                                            event.preventDefault();}"><i class="far fa-trash fa-2x text-danger"></i></a></span>
+                                </td>
                             @endforeach
 
                         </tr>

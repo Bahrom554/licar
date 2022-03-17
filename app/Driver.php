@@ -12,6 +12,21 @@ class Driver extends Model
         'c_start', 'c_end', 'inn', 'inps', 'expire_date','inn_o','inps_o','index'
     ];
 
+   public function  checker()
+   {
+       if (Carbon::parse($this->l_start)->day === Carbon::now()->day ||
+           Carbon::parse($this->l_start)->addDays(1)->day === Carbon::now()->day ||
+           Carbon::parse($this->l_start)->addDays(2)->day === Carbon::now()->day ||
+           Carbon::parse($this->l_start)->addDays(3)->day === Carbon::now()->day ||
+           Carbon::parse($this->l_start)->addDays(4)->day === Carbon::now()->day ||
+           Carbon::parse($this->l_start)->addDays(5)->day === Carbon::now()->day) {
+           return true;
+       }
+       else {
+           return false;
+       }
+   }
+
 
 //   public function  isDebt(){
 //       if($this->expire_date  <  Carbon::now()){
