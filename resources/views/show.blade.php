@@ -1,4 +1,32 @@
 @extends('app')
+@section('head')
+<style>
+        .pay{
+    position: relative;
+    overflow: hidden;
+
+}
+.cost{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transform: translateY(100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease;
+
+}
+.pay:hover{
+    color: transparent;
+}
+.pay:hover .cost{
+    transform: translateY(0);
+}
+    </style>
+    @endsection
 @section('main_content')
     @include('modals')
     <div class=" emp-profile position-relative mx-2">

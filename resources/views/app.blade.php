@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/fontawesom/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin/css/styles.css')}}">
+    @section('head')
+    @show
+
 </head>
 <body>
 <div class="container-fluid ">
